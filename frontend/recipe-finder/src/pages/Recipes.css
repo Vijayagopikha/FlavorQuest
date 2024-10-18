@@ -349,4 +349,117 @@ body{
   .recipe-btn:hover, .ingredients-btn:hover {
     background-color: var(--tenne-tawny-dark);
   }
-  
+  /* Recipes.css */
+
+  .meal-details-dynamic {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    background: var(--tenne-tawny);
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 600px; /* Ensure it doesn't stretch too wide */
+    max-height: 90%; /* Prevent overflow */
+    overflow-y: auto; /* Allow scrolling if content exceeds max height */
+    padding: 2rem 1rem;
+    transition: height 0.3s ease-in-out; /* Smooth transition for dynamic height */
+}
+
+.showRecipe {
+    display: block;
+}
+
+.meal-details-dynamic ol {
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+}
+
+.meal-details-dynamic li {
+    margin-bottom: 0.8rem;
+}
+
+.meal-details-dynamic h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.recipe-close-btn {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.8rem;
+    background: #fff;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.9;
+}
+
+.meal-details-dynamic::-webkit-scrollbar {
+    width: 8px;
+}
+
+.meal-details-dynamic::-webkit-scrollbar-thumb {
+    background: #f0f0f0;
+    border-radius: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+    .meal-details-dynamic {
+        width: 500px;
+    }
+}
+.favourites {
+    margin-left: 20px; /* Add left margin for spacing */
+    margin-right: 1000px; /* Adjust space between back button and favourites */
+    font-weight: bold; /* Make it bold */
+    cursor: default;
+    color: var(--tenne-tawny);
+    text-decoration: none;
+    font-size: 1.2em;
+    gap: 50px;
+    transition: all 0.3s ease;
+    position: relative; /* Change cursor to default when hovered */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 20;
+  overflow: hidden;
+}
+
+.back-btn,
+.logout-btn {
+    border: none;
+    background-color: var(--tenne-tawny); /* Use theme color */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.logout-btn{
+    margin-right: 20px;
+    margin-left: -5rem;
+}
+.back-btn:hover,
+.logout-btn:hover {
+    background-color: var(--tenne-tawny-dark); /* Darker shade on hover */
+}
+@media screen and (max-width: 600px) {
+    .navbar {
+        flex-direction: column; /* Stack items vertically on small screens */
+    }
+}

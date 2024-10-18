@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import "./Recipes.css"; // Link to your CSS file
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import { useNavigate, Link } from "react-router-dom";
 const Recipes = () => {
   const [meals, setMeals] = useState([]);
-  const [query, setQuery] = useState('');  // Use state to hold the search query
+  const [query, setQuery] = useState('');
   const [selectedMeal, setSelectedMeal] = useState(null);
-  const [showReviewsModal, setShowReviewsModal] = useState(false); // New state to control showing reviews
-  const [showIngredients, setShowIngredients] = useState(false);  // State for showing ingredients
+  const [showReviewsModal, setShowReviewsModal] = useState(false);
+  const [showIngredients, setShowIngredients] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [showMeal, setshowMeal] = useState(false);
+
+  const navigate = useNavigate();
+
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (query.trim() === '') return; // Ensure the search query isn't empty
-    
+    if (query.trim() === '') return;
+
     try {
-      const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
-      );
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
       const data = await response.json();
-      setMeals(data.meals || []); // Update state with meal data
+      setMeals(data.meals || []);
     } catch (error) {
       console.error('Error fetching meals:', error);
       setMeals([]);
@@ -26,31 +29,71 @@ const Recipes = () => {
 
   const showMealDetails = (meal) => {
     setSelectedMeal(meal);
+    setshowMeal(true);
     setShowReviewsModal(false);
-    setShowIngredients(false); // Hide ingredients initially 
+    setShowIngredients(false);
   };
 
   const closeRecipe = () => {
     setSelectedMeal(null);
   };
 
-  const showMealIngredients = () => {
-    setShowIngredients(true);  // Show ingredients when clicked
+  const showMealIngredients = (meal) => {
+    setSelectedMeal(meal);
+    setshowMeal(false);
+    setShowReviewsModal(false);
+    setShowIngredients(true);
   };
+
+  const handleFavorites = (meal) => {
+    if (favorites.includes(meal.idMeal)) {
+      setFavorites(favorites.filter(fav => fav !== meal.idMeal));
+    } else {
+      setFavorites([...favorites, meal.idMeal]);
+    }
+  };
+
   const reviews = [
     { id: 1, name: "John Doe", feedback: "Amazing recipe! I loved it." },
     { id: 2, name: "Jane Smith", feedback: "Simple and delicious." },
     { id: 3, name: "Alice Johnson", feedback: "Tried this with my family, and it was a hit!" },
     { id: 4, name: "Chris Lee", feedback: "Easy to follow, and the taste was great!" }
   ];
+
   const handleReviews = () => {
-    setShowReviewsModal(true); // Show reviews when clicked
+    setShowReviewsModal(true);
   };
+
   const closeModal = () => {
-    setShowReviewsModal(false); // Close the modal
+    setShowReviewsModal(false);
   };
+
+  // Function to get the ingredients
+  const getIngredients = (meal) => {
+    const ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+      const ingredient = meal[`strIngredient${i}`];
+      const measure = meal[`strMeasure${i}`];
+      if (ingredient) {
+        ingredients.push(` ${measure ? measure + ' ' : ''}${ingredient}`);
+      }
+    }
+    return ingredients;
+  };
+
+  const handleLogout = () => {
+    window.location.href = '/';
+  }
   return (
     <div className="container">
+      <nav className="navbar">
+        <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
+        <Link to="/favourites" className="favourites">Favourites</Link>
+        {/* <div className="user-info">
+    {username && <span className="username">Welcome, {username}!</span>}
+  </div> */}
+        <button className="logout-btn" onClick={handleLogout}>Logout</button>
+      </nav>
       <div className="meal-wrapper">
         <h2 className="title">Find Your Recipe</h2>
 
@@ -61,8 +104,8 @@ const Recipes = () => {
               type="text"
               className="search-control"
               placeholder="Enter meal name..."
-              value={query} // Bind the input to query state
-              onChange={(e) => setQuery(e.target.value)} // Update query state on input change
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
             />
             <button type="submit" className="search-btn">
               <i className="fa fa-search"></i>
@@ -73,35 +116,83 @@ const Recipes = () => {
         <div className="meal-result" id="meal">
           {meals.length > 0 ? (
             meals.map((meal) => (
-              <div key={meal.idMeal} className="meal-item">
+              <div key={meal.idMeal} className="meal-item" style={{ position: 'relative' }}>
                 <div className="meal-img">
                   <img src={meal.strMealThumb} alt={meal.strMeal} />
                 </div>
                 <div className="meal-name">
                   <h3>{meal.strMeal}</h3>
+                  <button
+                    className="favorites-btn"
+                    onClick={() => handleFavorites(meal)}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      color: 'black',
+                      cursor: 'pointer',
+                      position: 'absolute', // Make the button position absolute
+                      top: '10px', // Position it from the top
+                      right: '10px', // Position it from the right
+                    }}
+                  >
+                    <div
+                      style={{
+                        position: 'relative',
+                        width: '40px',
+                        height: '40px',
+                        border: `2px solid ${favorites.includes(meal.idMeal) ? 'red' : 'black'}`,
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'border-color 0.3s ease',
+                      }}
+                    >
+                      <i
+                        className={`fa ${favorites.includes(meal.idMeal) ? 'fa-heart' : 'fa-heart'}`}
+                        style={{
+                          fontSize: '24px',
+                          color: favorites.includes(meal.idMeal) ? 'red' : 'black',
+                          transition: 'color 0.2s',
+                        }}
+                      ></i>
+                    </div>
+                  </button>
                   <div className="button-group">
-                  <button
-                    className="recipe-btn"
-                    onClick={() => showMealDetails(meal)}
-                  >
-                    Get Recipe
-                  </button>
-                  <button
-                    className="ingredients-btn"
-                    onClick={showMealIngredients}
-                  >
-                    Get Ingredients
-                  </button>
-                </div>
+                    <button className="recipe-btn" onClick={() => showMealDetails(meal)}>
+                      Get Recipe
+                    </button>
+                    <button className="ingredients-btn" onClick={() => showMealIngredients(meal)}>
+                      Get Ingredients
+                    </button>
+                  </div>
                 </div>
               </div>
+
             ))
           ) : (
             <div className="notFound">No meals found.</div>
           )}
         </div>
+        {showIngredients && (
+          <div className="meal-details-dynamic showRecipe">
+            <button className="recipe-close-btn" onClick={() => setShowIngredients(false)}>
+              &times;
+            </button>
+            <div className="meal-details-content">
+              <h3>Ingredients:</h3>
+              <ol >
+                {getIngredients(selectedMeal).map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        )}
 
-        {selectedMeal && (
+
+
+        {selectedMeal && showMeal && (
           <div className="meal-details showRecipe">
             <button className="recipe-close-btn" onClick={closeRecipe}>
               &times;
@@ -123,29 +214,30 @@ const Recipes = () => {
                     rel="noreferrer"
                     className="btn-video"
                   >
-                     Video Link
+                    Video Link
                   </a>
                 )}
                 <button className="btn-reviews" onClick={handleReviews}>
                   Reviews
                 </button>
               </div>
-               {/* Reviews Modal */}
-        {showReviewsModal && (
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <button className="modal-close-btn" onClick={closeModal}>
-                &times;
-              </button>
-              <h3>Reviews</h3>
-              {reviews.map((review) => (
-                <div key={review.id} className="review-item">
-                  <strong>{review.name}</strong>
-                  <p>{review.feedback}</p>
+
+              {/* Reviews Modal */}
+              {showReviewsModal && (
+                <div className="modal-overlay">
+                  <div className="modal-content">
+                    <button className="modal-close-btn" onClick={closeModal}>
+                      &times;
+                    </button>
+                    <h3>Reviews</h3>
+                    {reviews.map((review) => (
+                      <div key={review.id} className="review-item">
+                        <strong>{review.name}</strong>
+                        <p>{review.feedback}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
-            </div>
               )}
             </div>
           </div>
