@@ -307,3 +307,23 @@ body{
         grid-template-columns: repeat(3, 1fr);
     }
 }
+.btn-video, .btn-reviews {
+    text-decoration: none;
+    color: var(--tenne-tawny); /* Text color similar to .recipe-category */
+    background: #fff; /* White background */
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.75rem 0; /* Adjust padding */
+    display: inline-block;
+    width: 175px; /* Set the same width for both buttons */
+    margin: 1rem 0.5rem;
+    border-radius: 2rem;
+    border: 1px solid var(--tenne-tawny); /* Add border to match the style */
+    text-align: center; /* Center the text */
+    transition: all 0.4s linear;
+}
+
+.btn-video:hover, .btn-reviews:hover {
+    background: var(--tenne-tawny); /* Change to var(--tenne-tawny) on hover */
+    color: #fff; /* Change text color to white on hover */
+}

@@ -89,10 +89,20 @@ const Recipes = () => {
               <div className="recipe-meal-img">
                 <img src={selectedMeal.strMealThumb} alt={selectedMeal.strMeal} />
               </div>
-              <div className="recipe-link">
-                <a href={selectedMeal.strSource} target="_blank" rel="noreferrer">
-                  View Full Recipe
-                </a>
+              <div className="recipe-buttons">
+                {selectedMeal.strYoutube && (
+                  <a
+                    href={selectedMeal.strYoutube}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-video"
+                  >
+                    Watch Video
+                  </a>
+                )}
+                <button className="btn-reviews" onClick={() => alert('Reviews are coming soon!')}>
+                  Reviews
+                </button>
               </div>
             </div>
           </div>
