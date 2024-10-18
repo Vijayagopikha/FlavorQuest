@@ -5,7 +5,7 @@
     --tenne-tawny-dark: #b54507;
 }
 
-.header-container {
+.header-container { 
     position: relative;
     width: 100%;
     height: 100vh;
@@ -19,15 +19,30 @@
 }
 
 .header-title {
-    font-size: 3em;
-    letter-spacing: 10px;
-    text-transform: uppercase;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+    font-size: 3em; /* Increased font size for the title */
+    letter-spacing: 10px; /* Space between letters */
+    text-transform: uppercase; /* Uppercase for the title */
+    color: #fff; /* Title color */
+    margin: 0; /* No margin */
+    padding: 0; /* No padding */
+    text-align: center; /* Center align text */
+    transition: color 0.3s ease; /* Transition effect for hover */
 }
 
+/* Add hover effect for title */
+.header-title:hover {
+    color: var(--tenne-tawny); /* Change color on hover */
+}
+
+.header-subtitle {
+    letter-spacing: 5px; /* Space between letters */
+    color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for subtitle */
+    font-size: 1.8em; /* Increased font size for subtitle */
+    margin-top: 10px; /* Space above subtitle */
+}
+.header-subtitle:hover {
+    color: var(--tenne-tawny); /* Change color on hover */
+  }
 /* Additional styling to maintain responsiveness */
 .text-content {
     display: flex;
@@ -59,15 +74,15 @@
     position: absolute;
     top: 35px;
     width: 95%;
-    gap:20;
+    gap: 20;
     display: flex;
     justify-content: space-between;
     padding: 10px 100px;
     z-index: 20;
-
 }
 
-.left-links, .right-links {
+.left-links,
+.right-links {
     display: flex;
     gap: 20px; /* Set a gap between each link */
 }
@@ -105,4 +120,92 @@
 .left-links a:hover::after,
 .right-links a:hover::after {
     transform: scaleX(1);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure modal is above other content */
+}
+
+/* Login Modal */
+.login-modal,
+.signup-modal {
+    background-color: white; /* Modal background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Inner spacing */
+    width: 400px; /* Set a fixed width */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+/* Close Button */
+.close-modal-btn {
+    background: none; /* No background */
+    border: none; /* No border */
+    font-size: 20px; /* Font size for close button */
+    cursor: pointer; /* Pointer cursor */
+    color: #333; /* Color for the close button */
+    float: right; /* Position to the right */
+}
+
+/* Login Form Styles */
+.login-form,
+.signup-form {
+    margin-top: 10px; /* Margin above the form */
+}
+
+/* Input Fields */
+.login-form input,
+.signup-form input {
+    width: 100%; /* Full width */
+    padding: 10px; /* Inner spacing */
+    margin: 10px 0; /* Margin above and below */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+}
+
+/* Login Button */
+.login-form button,
+.signup-form button {
+    width: 100%; /* Full width */
+    padding: 10px; /* Inner spacing */
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 16px; /* Font size */
+}
+
+/* Button Hover Effect */
+.login-form button:hover,
+.signup-form button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Error or Info Message */
+.login-form p,
+.signup-form p {
+    color: #d9534f; /* Red color for error messages */
+    text-align: center; /* Center text */
+}
+
+/* Link Styles */
+.login-form a,
+.signup-form a {
+    color: #007bff; /* Bootstrap blue for links */
+    text-decoration: none; /* No underline */
+}
+
+.login-form a:hover,
+.signup-form a:hover {
+    text-decoration: underline; /* Underline on hover */
 }

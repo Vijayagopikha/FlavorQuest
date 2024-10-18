@@ -21,12 +21,14 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(formData.emailOrUsername);
       const res = await axios.post('http://localhost:5000/api/auth/login', formData);
       alert('Logged in successfully');
+      console.log('hi');
       console.log(res.data); // Token or success response
       navigate('/recipe');
     } catch (err) {
-      console.error(err.response.data);
+      console.log('invalid');
       alert(err.response.data.msg || 'Error logging in');
     }
   };

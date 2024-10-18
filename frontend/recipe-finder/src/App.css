@@ -32,10 +32,41 @@ html, body {
     color: var(--tenne-tawny);
 }
 
-.header-title {
-    text-transform: uppercase;
-    letter-spacing: 16px;
+.header-container { 
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
-    font-size: 80px;
-    margin-bottom: 32px;
+    text-align: center;
+    background-color: var(--tenne-tawny-dark);
+    font-family: 'Poppins', sans-serif;
 }
+
+.header-title {
+    font-size: 3em; /* Increased font size for the title */
+    letter-spacing: 10px; /* Space between letters */
+    text-transform: uppercase; /* Uppercase for the title */
+    color: #fff; /* Title color */
+    margin: 0; /* No margin */
+    padding: 0; /* No padding */
+    text-align: center; /* Center align text */
+    transition: color 0.3s ease; /* Transition effect for hover */
+}
+
+/* Add hover effect for title */
+.header-title:hover {
+    color: var(--tenne-tawny); /* Change color on hover */
+}
+
+.header-subtitle {
+    letter-spacing: 5px; /* Space between letters */
+    color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for subtitle */
+    font-size: 1.8em; /* Increased font size for subtitle */
+    margin-top: 10px; /* Space above subtitle */
+}
+.header-subtitle:hover {
+    color: var(--tenne-tawny); /* Change color on hover */
+  }
