@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --tenne-tawny: #d65108;
+    --tenne-tawny-dark: #b54507;
+}
+
+.header-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    background-color: var(--tenne-tawny-dark);
+    font-family: 'Poppins', sans-serif;
+}
+
+.header-title {
+    font-size: 3em;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Additional styling to maintain responsiveness */
+.text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 2.5em;
+        letter-spacing: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 2em;
+        letter-spacing: 5px;
+    }
+}
+
+/* Navigation styles */
+.nav-links {
+    position: absolute;
+    top: 35px;
+    width: 95%;
+    gap:20;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 100px;
+    z-index: 20;
+
+}
+
+.left-links, .right-links {
+    display: flex;
+    gap: 20px; /* Set a gap between each link */
+}
+
+.company-name {
+    font-size: 1.5em;
+    color: var(--tenne-tawny);
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.left-links a,
+.right-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    gap: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.left-links a::after,
+.right-links a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: var(--tenne-tawny);
+    left: 0;
+    bottom: -4px;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.left-links a:hover::after,
+.right-links a:hover::after {
+    transform: scaleX(1);
+}

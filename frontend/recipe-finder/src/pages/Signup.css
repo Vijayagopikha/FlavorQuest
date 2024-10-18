@@ -1,0 +1,91 @@
+.signup-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #fefae0; /* Light, warm background similar to recipe theme */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Poppins', sans-serif; /* Matching font */
+}
+
+.signup-form h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #283618; /* Darker green for headings */
+}
+
+.signup-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.signup-form label {
+  font-size: 1em;
+  text-align: left;
+  margin-bottom: 5px;
+  color: #606c38; /* Softer green tone for labels */
+}
+
+.signup-form input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+  background-color: #faf9f6; /* Light background for input fields */
+}
+
+.signup-form input:focus {
+  outline: none;
+  border-color: #dda15e; /* Warm color for focused inputs */
+}
+
+.signup-form button {
+  padding: 12px 20px;
+  background-color: #bc6c25; /* Warm, earthy button color */
+  color: white;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-form button:hover {
+  background-color: #bb9457; /* Darker tone on hover */
+}
+
+.signup-form p {
+  font-size: 0.9em;
+  color: #8d8a8a; /* Lighter color for additional text */
+}
+
+.signup-form a {
+  color: #bc6c25; /* Matching link color */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-form a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 480px) {
+  .signup-form {
+    padding: 20px;
+  }
+
+  .signup-form h2 {
+    font-size: 1.8em;
+  }
+
+  .signup-form input,
+  .signup-form button {
+    font-size: 1em;
+  }
+}
