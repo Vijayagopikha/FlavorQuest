@@ -114,15 +114,15 @@ body{
 .meal-name h3{
     font-size: 1.4rem;
 }
-.recipe-btn{
+.recipe-btn, .ingredients-btn {
     text-decoration: none;
     color: #fff;
     background: var(--tenne-tawny);
     font-weight: 500;
-    font-size: 1.1rem;
-    padding: 0.75rem 0;
+    font-size: 1.3rem;
+    padding: 0.85rem 0;
     display: block;
-    width: 175px;
+    width: 185px;
     margin: 1rem auto;
     border-radius: 2rem;
     -webkit-border-radius: 2rem;
@@ -135,7 +135,7 @@ body{
     -ms-transition: all 0.4s linear;
     -o-transition: all 0.4s linear;
 }
-.recipe-btn:hover{
+.recipe-btn:hover , .ingredients-btn:hover {
     background: var(--tenne-tawny-dark);
 }
 
@@ -307,23 +307,46 @@ body{
         grid-template-columns: repeat(3, 1fr);
     }
 }
+.btn-reviews{
+    text-decoration: none;
+    padding: 0.75rem 1.25rem;
+}
 .btn-video, .btn-reviews {
     text-decoration: none;
-    color: var(--tenne-tawny); /* Text color similar to .recipe-category */
+    color: var(--tenne-tawny); /* Same text color as .recipe-category */
     background: #fff; /* White background */
     font-weight: 600;
     font-size: 1.1rem;
-    padding: 0.75rem 0; /* Adjust padding */
+    padding: 0; /* Remove padding to manage size via height */
     display: inline-block;
-    width: 175px; /* Set the same width for both buttons */
+    width: 180px; /* Set a fixed width */
+    height: 50px; /* Set a fixed height */
     margin: 1rem 0.5rem;
-    border-radius: 2rem;
+    border-radius: 0.3rem; /* Box style with slight rounding */
     border: 1px solid var(--tenne-tawny); /* Add border to match the style */
     text-align: center; /* Center the text */
+    line-height: 50px; /* Vertically center the text based on the height */
     transition: all 0.4s linear;
 }
 
 .btn-video:hover, .btn-reviews:hover {
-    background: var(--tenne-tawny); /* Change to var(--tenne-tawny) on hover */
+    background: var(--tenne-tawny); /* Change background to var(--tenne-tawny) on hover */
     color: #fff; /* Change text color to white on hover */
 }
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Add space between buttons */
+  }
+  
+  .recipe-btn, .ingredients-btn {
+    width: auto; /* Adjust width */
+    padding: 0.5rem 1rem; /* Add padding */
+    display: inline-block; /* Make buttons inline */
+  }
+  
+  .recipe-btn:hover, .ingredients-btn:hover {
+    background-color: var(--tenne-tawny-dark);
+  }
+  

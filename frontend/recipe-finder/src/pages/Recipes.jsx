@@ -6,7 +6,8 @@ const Recipes = () => {
   const [meals, setMeals] = useState([]);
   const [query, setQuery] = useState('');  // Use state to hold the search query
   const [selectedMeal, setSelectedMeal] = useState(null);
-
+  const [showReviewsModal, setShowReviewsModal] = useState(false); // New state to control showing reviews
+  const [showIngredients, setShowIngredients] = useState(false);  // State for showing ingredients
   const handleSearch = async (e) => {
     e.preventDefault();
     if (query.trim() === '') return; // Ensure the search query isn't empty
@@ -25,12 +26,29 @@ const Recipes = () => {
 
   const showMealDetails = (meal) => {
     setSelectedMeal(meal);
+    setShowReviewsModal(false);
+    setShowIngredients(false); // Hide ingredients initially 
   };
 
   const closeRecipe = () => {
     setSelectedMeal(null);
   };
 
+  const showMealIngredients = () => {
+    setShowIngredients(true);  // Show ingredients when clicked
+  };
+  const reviews = [
+    { id: 1, name: "John Doe", feedback: "Amazing recipe! I loved it." },
+    { id: 2, name: "Jane Smith", feedback: "Simple and delicious." },
+    { id: 3, name: "Alice Johnson", feedback: "Tried this with my family, and it was a hit!" },
+    { id: 4, name: "Chris Lee", feedback: "Easy to follow, and the taste was great!" }
+  ];
+  const handleReviews = () => {
+    setShowReviewsModal(true); // Show reviews when clicked
+  };
+  const closeModal = () => {
+    setShowReviewsModal(false); // Close the modal
+  };
   return (
     <div className="container">
       <div className="meal-wrapper">
@@ -61,12 +79,20 @@ const Recipes = () => {
                 </div>
                 <div className="meal-name">
                   <h3>{meal.strMeal}</h3>
+                  <div className="button-group">
                   <button
                     className="recipe-btn"
                     onClick={() => showMealDetails(meal)}
                   >
                     Get Recipe
                   </button>
+                  <button
+                    className="ingredients-btn"
+                    onClick={showMealIngredients}
+                  >
+                    Get Ingredients
+                  </button>
+                </div>
                 </div>
               </div>
             ))
@@ -97,13 +123,30 @@ const Recipes = () => {
                     rel="noreferrer"
                     className="btn-video"
                   >
-                    Watch Video
+                     Video Link
                   </a>
                 )}
-                <button className="btn-reviews" onClick={() => alert('Reviews are coming soon!')}>
+                <button className="btn-reviews" onClick={handleReviews}>
                   Reviews
                 </button>
               </div>
+               {/* Reviews Modal */}
+        {showReviewsModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <button className="modal-close-btn" onClick={closeModal}>
+                &times;
+              </button>
+              <h3>Reviews</h3>
+              {reviews.map((review) => (
+                <div key={review.id} className="review-item">
+                  <strong>{review.name}</strong>
+                  <p>{review.feedback}</p>
+                </div>
+              ))}
+            </div>
+            </div>
+              )}
             </div>
           </div>
         )}
