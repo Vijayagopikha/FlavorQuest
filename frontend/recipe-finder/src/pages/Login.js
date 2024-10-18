@@ -1,6 +1,7 @@
 // src/components/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
@@ -10,7 +11,7 @@ const Login = () => {
   });
 
   const [message, setMessage] = useState('');
-
+  const navigate = useNavigate();
   const { emailOrUsername, password } = formData;
 
   const onChange = (e) => {
@@ -21,11 +22,12 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:5000/api/auth/login', formData);
-      setMessage('Logged in successfully');
+      alert('Logged in successfully');
       console.log(res.data); // Token or success response
+      navigate('/recipe');
     } catch (err) {
       console.error(err.response.data);
-      setMessage(err.response.data.msg || 'Error logging in');
+      alert(err.response.data.msg || 'Error logging in');
     }
   };
 

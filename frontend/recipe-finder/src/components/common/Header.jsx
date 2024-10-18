@@ -11,7 +11,7 @@ const Header = (props) => {
                 <div className="left-links">
                     <span className="company-name">TasteTrek</span> {/* Added company name */}
                     <Link to="/" className="home">HOME</Link>
-                    <Link to="/recipe" className="recipe">RECIPE</Link>
+                    <Link to="/login" className="recipe">RECIPE</Link>
                 </div>
                 <div className="right-links">
                     <Link to="/login" className="login">LOGIN</Link>

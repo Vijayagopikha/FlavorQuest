@@ -1,6 +1,7 @@
 // src/components/Signup.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './Signup.css';
 
 const Signup = () => {
@@ -11,7 +12,7 @@ const Signup = () => {
   });
   
   const [message, setMessage] = useState('');
-
+  const navigate = useNavigate();
   const { username, email, password } = formData;
 
   const onChange = (e) => {
@@ -22,11 +23,12 @@ const Signup = () => {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:5000/api/auth/signup', formData);
-      setMessage('Account created successfully');
+      alert('Account created successfully');
       console.log(res.data); // Token or success response
+      navigate('/login');
     } catch (err) {
       console.error(err.response.data);
-      setMessage(err.response.data.msg || 'Error creating account');
+      alert(err.response.data.msg || 'Error creating account');
     }
   };
 
