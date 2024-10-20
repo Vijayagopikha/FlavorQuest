@@ -25,7 +25,10 @@ const Login = () => {
       const res = await axios.post('http://localhost:5000/api/auth/login', formData);
       alert('Logged in successfully');
       console.log('hi');
-      console.log(res.data); // Token or success response
+      console.log(res.data);
+       // Token or success response
+       const userEmail = formData.emailOrUsername; // or res.data.email if email is returned from the server
+       localStorage.setItem('userEmail', userEmail);
       navigate('/recipe');
     } catch (err) {
       console.log('invalid');

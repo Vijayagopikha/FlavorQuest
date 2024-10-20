@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./Recipes.css"; // Link to your CSS file
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+
+
 const Recipes = () => {
   const [meals, setMeals] = useState([]);
   const [query, setQuery] = useState('');
@@ -45,11 +48,35 @@ const Recipes = () => {
     setShowIngredients(true);
   };
 
-  const handleFavorites = (meal) => {
+  /*const handleFavorites = (meal) => {
     if (favorites.includes(meal.idMeal)) {
       setFavorites(favorites.filter(fav => fav !== meal.idMeal));
     } else {
       setFavorites([...favorites, meal.idMeal]);
+    }
+  };*/
+  const handleFavorites = async (meal) => {
+    // Check if the meal is already in favorites
+    const isFavorite = favorites.some(fav => fav.idMeal === meal.idMeal);
+    const userEmail = localStorage.getItem('userEmail');
+    if (isFavorite) {
+      // Remove the meal from favorites
+      setFavorites(favorites.filter(fav => fav.idMeal !== meal.idMeal));
+    } else {
+      // Add the meal to favorites
+      setFavorites([...favorites, meal]);
+       // Get user email from local storage
+       try {
+        // Send the email and meal name to the backend
+        await axios.post('http://localhost:5000/api/favorites', {
+          email: userEmail,
+          mealName: meal.strMeal
+        });
+        alert(`${meal.strMeal} added to favorites!`);
+      } catch (error) {
+        console.error('Error adding favorite:', error);
+        alert('Error adding favorite. Please try again.');
+      }
     }
   };
 
@@ -88,7 +115,7 @@ const Recipes = () => {
     <div className="container">
       <nav className="navbar">
         <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
-        <Link to="/favourites" className="favourites">Favourites</Link>
+        <Link to="/fov" className="favourites">Favourites</Link>
         {/* <div className="user-info">
     {username && <span className="username">Welcome, {username}!</span>}
   </div> */}
@@ -140,7 +167,7 @@ const Recipes = () => {
                         position: 'relative',
                         width: '40px',
                         height: '40px',
-                        border: `2px solid ${favorites.includes(meal.idMeal) ? 'red' : 'black'}`,
+                        border: `2px solid ${favorites.some(fav => fav.idMeal === meal.idMeal) ? 'red' : 'black'}`,
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
@@ -149,10 +176,10 @@ const Recipes = () => {
                       }}
                     >
                       <i
-                        className={`fa ${favorites.includes(meal.idMeal) ? 'fa-heart' : 'fa-heart'}`}
+                        className={`fa ${favorites.some(fav => fav.idMeal === meal.idMeal) ? 'fa-heart' : 'fa-heart'}`}
                         style={{
                           fontSize: '24px',
-                          color: favorites.includes(meal.idMeal) ? 'red' : 'black',
+                          color: favorites.some(fav => fav.idMeal === meal.idMeal) ? 'red' : 'black',
                           transition: 'color 0.2s',
                         }}
                       ></i>
