@@ -13,6 +13,10 @@ const Recipes = () => {
   const [showIngredients, setShowIngredients] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [showMeal, setshowMeal] = useState(false);
+  const [feedback, setFeedback] = useState('');
+  const [name, setName] = useState(''); // State for name input
+  const [message, setMessage] = useState(''); // Message to show submission status
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -47,7 +51,36 @@ const Recipes = () => {
     setShowReviewsModal(false);
     setShowIngredients(true);
   };
+  const handleFeedback = (event) => {
+    setFeedback(event.target.value);
+  };
 
+  const handleName = (event) => {
+    setName(event.target.value);
+  };
+
+  const submitFeedback = async () => {
+    if (feedback.trim() && name.trim()) {
+      try {
+        await axios.post('http://localhost:5000/api/feedback', {
+          mealId: selectedMeal.idMeal,
+          name,
+          feedback
+        });
+        setMessage('Feedback submitted successfully!');
+        setFeedback('');
+        setName('');
+        setShowFeedbackModal(false); // Close feedback modal after submission
+      } catch (error) {
+        console.error('Error submitting feedback:', error);
+        setMessage('Error submitting feedback. Please try again.');
+      }
+    } else {
+      alert("Please enter your name and feedback before submitting.");
+    }
+  };
+  
+  
   /*const handleFavorites = (meal) => {
     if (favorites.includes(meal.idMeal)) {
       setFavorites(favorites.filter(fav => fav !== meal.idMeal));
@@ -90,9 +123,14 @@ const Recipes = () => {
   const handleReviews = () => {
     setShowReviewsModal(true);
   };
+  
+  const handleFeedbackModal = () => {
+    setShowFeedbackModal(true);
+  };
 
   const closeModal = () => {
     setShowReviewsModal(false);
+    setShowFeedbackModal(false);
   };
 
   // Function to get the ingredients
@@ -247,6 +285,7 @@ const Recipes = () => {
                 <button className="btn-reviews" onClick={handleReviews}>
                   Reviews
                 </button>
+                <button className="btn-feedback" onClick={handleFeedbackModal}>Add Your Feedback</button>
               </div>
 
               {/* Reviews Modal */}
@@ -266,6 +305,21 @@ const Recipes = () => {
                   </div>
                 </div>
               )}
+                      {showFeedbackModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <button className="modal-close-btn" onClick={closeModal}>&times;</button>
+              <h3>Add Your Feedback</h3>
+              <textarea
+                value={feedback}
+                onChange={(e) => setFeedback(e.target.value)}
+                placeholder="Write your feedback here..."
+              ></textarea>
+              <button className="submit-feedback-btn" onClick={submitFeedback}>Submit Feedback</button>
+            </div>
+          </div>
+        )}
+
             </div>
           </div>
         )}

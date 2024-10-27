@@ -7,6 +7,7 @@ const favoritesRoute = require('./routes/favorites');
 dotenv.config();
 
 const authRoutes = require('./routes/auth');
+const feedbackRoutes = require("./routes/feedbackRoutes");
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 // Use the favorites route
 app.use('/api/favorites', favoritesRoute);
+//feedback
+app.use("/api/feedback", feedbackRoutes);
 
 // Connect to MongoDB
 mongoose

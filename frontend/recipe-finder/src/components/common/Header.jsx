@@ -37,6 +37,7 @@ const Header = (props) => {
       alert('Logged in successfully');
       console.log(res.data); // Token or success response
       localStorage.setItem('token', res.data.token); // Store token
+      localStorage.setItem('username', res.data.username);
       localStorage.setItem('userEmail',formData.emailOrUsername);
       navigate('/recipe'); // Redirect to recipe page
     } catch (err) {
