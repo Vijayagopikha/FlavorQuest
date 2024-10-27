@@ -41,6 +41,8 @@ const Recipes = () => {
     setshowMeal(true);
     setShowReviewsModal(false);
     setShowIngredients(false);
+
+    
   };
 
   const closeRecipe = () => {
@@ -89,7 +91,7 @@ const Recipes = () => {
     }
   };
   
-  
+   
   /*const handleFavorites = (meal) => {
     if (favorites.includes(meal.idMeal)) {
       setFavorites(favorites.filter(fav => fav !== meal.idMeal));
