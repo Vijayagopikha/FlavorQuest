@@ -15,7 +15,7 @@ const Recipes = () => {
   const [showMeal, setshowMeal] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [username, setUsername] = useState(localStorage.getItem('username') || ''); // State for username input
-  const [email, setEmail] = useState(localStorage.getItem('email') || ''); // State for email input
+  const [email, setEmail] = useState(localStorage.getItem('userEmail') || ''); // State for email input
   const [message, setMessage] = useState(''); // Message to show submission status
   
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
@@ -53,13 +53,7 @@ const Recipes = () => {
     setShowReviewsModal(false);
     setShowIngredients(true);
   };
-  const handleFeedback = (event) => {
-    setFeedback(event.target.value);
-  };
-
-  const handleName = (event) => {
-    setName(event.target.value);
-  };
+  
 
   const submitFeedback = async () => {
     if (feedback.trim() && username.trim() && email.trim()) {
@@ -82,14 +76,13 @@ const Recipes = () => {
         }
   
         const data = await response.json();
-        setMessage('Feedback submitted successfully!');
+        alert("Feedback submitted successfully!");
         setFeedback(''); // Clear feedback input
-        setUsername(''); // Clear username input
-        setEmail('');    // Clear email input
+        
         setShowFeedbackModal(false); // Close feedback modal after submission
       } catch (error) {
         console.error('Error submitting feedback:', error);
-        setMessage('Error submitting feedback. Please try again.');
+        alert("Error submitting feedback. Please try again.");
       }
     } else {
       alert("Please fill in all fields: Meal ID, Username, Email, and Feedback.");
