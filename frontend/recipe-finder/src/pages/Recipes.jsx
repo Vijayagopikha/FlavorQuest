@@ -14,8 +14,10 @@ const Recipes = () => {
   const [favorites, setFavorites] = useState([]);
   const [showMeal, setshowMeal] = useState(false);
   const [feedback, setFeedback] = useState('');
-  const [name, setName] = useState(''); // State for name input
+  const [username, setUsername] = useState(localStorage.getItem('username') || ''); // State for username input
+  const [email, setEmail] = useState(localStorage.getItem('email') || ''); // State for email input
   const [message, setMessage] = useState(''); // Message to show submission status
+  
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   const navigate = useNavigate();
@@ -60,23 +62,37 @@ const Recipes = () => {
   };
 
   const submitFeedback = async () => {
-    if (feedback.trim() && name.trim()) {
+    if (feedback.trim() && username.trim() && email.trim()) {
       try {
-        await axios.post('http://localhost:5000/api/feedback', {
-          mealId: selectedMeal.idMeal,
-          name,
-          feedback
+        const response = await fetch('http://localhost:5000/api/feedback', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            mealId: selectedMeal.idMeal,
+            username, // Assuming username is being used instead of name
+            email,
+            feedback,
+          }),
         });
+  
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+  
+        const data = await response.json();
         setMessage('Feedback submitted successfully!');
-        setFeedback('');
-        setName('');
+        setFeedback(''); // Clear feedback input
+        setUsername(''); // Clear username input
+        setEmail('');    // Clear email input
         setShowFeedbackModal(false); // Close feedback modal after submission
       } catch (error) {
         console.error('Error submitting feedback:', error);
         setMessage('Error submitting feedback. Please try again.');
       }
     } else {
-      alert("Please enter your name and feedback before submitting.");
+      alert("Please fill in all fields: Meal ID, Username, Email, and Feedback.");
     }
   };
   
