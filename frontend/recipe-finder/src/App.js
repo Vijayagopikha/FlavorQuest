@@ -5,6 +5,7 @@ import Favorites from "./pages/Favorites";
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import './App.css'
 const App = () => {
     return (
       <Router>
