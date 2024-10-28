@@ -3,6 +3,7 @@ import "./Recipes.css"; // Link to your CSS file
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { REACT_APP_BACKEND_URL } from "../constants/constant";
 
 const Recipes = () => {
   const [meals, setMeals] = useState([]);
@@ -86,7 +87,7 @@ const Recipes = () => {
   const submitFeedback = async () => {
     if (feedback.trim() && username.trim() && email.trim()) {
       try {
-        const response = await fetch('http://localhost:5000/api/feedback', {
+        const response = await fetch(`${REACT_APP_BACKEND_URL}/api/feedback`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -128,7 +129,7 @@ const Recipes = () => {
       // Add the meal to favorites
       setFavorites([...favorites, meal]);
       try {
-        await axios.post('http://localhost:5000/api/favorites', {
+        await axios.post(`${REACT_APP_BACKEND_URL}/api/favorites`, {
           email: userEmail,
           mealName: meal.strMeal
         });

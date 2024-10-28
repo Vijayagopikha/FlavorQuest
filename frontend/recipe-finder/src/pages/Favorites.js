@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Recipes.css"; // Assuming you're using the same CSS
 import { useNavigate, Link } from "react-router-dom";
-
+import { REACT_APP_BACKEND_URL } from "../constants/constant";
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
   const [meals, setMeals] = useState([]);
@@ -48,7 +48,7 @@ const Favorites = () => {
     const fetchFavorites = async () => {
       setLoading(true); // Start loading
       try {
-        const response = await fetch('http://localhost:5000/api/favorites/getAll', {
+        const response = await fetch(`${REACT_APP_BACKEND_URL}/api/favorites/getAll`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: userEmail })

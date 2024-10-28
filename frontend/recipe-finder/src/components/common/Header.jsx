@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Ensure axios is imported
 import './Header.css'; // Import your CSS for Header styles
+import { REACT_APP_BACKEND_URL } from '../../constants/constant';
 
 const Header = (props) => {
   const [formData, setFormData] = useState({
@@ -33,7 +34,7 @@ const Header = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', formData);
+      const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/auth/login`, formData);
       alert('Logged in successfully');
       console.log(res.data); // Token or success response
       localStorage.setItem('token', res.data.token); // Store token
@@ -49,7 +50,7 @@ const Header = (props) => {
   const onSignupSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', signupData);
+      const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/auth/signup`, signupData);
       alert('Account created successfully');
       console.log(res.data); 
       // Success response
