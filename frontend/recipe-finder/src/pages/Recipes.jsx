@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Recipes.css"; // Link to your CSS file
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useNavigate, Link } from "react-router-dom";
@@ -54,7 +54,13 @@ const Recipes = () => {
       setLoading(false); // Set loading to false when fetch is done
     }
   };
-
+  //dashboard
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
   const showMealDetails = (meal) => {
     setSelectedMeal(meal);
     setShowMeal(true);
@@ -100,8 +106,7 @@ const Recipes = () => {
         const data = await response.json();
         setMessage('Feedback submitted successfully!');
         setFeedback(''); // Clear feedback input
-        setUsername(''); // Clear username input
-        setEmail('');    // Clear email input
+        
         setShowFeedbackModal(false); // Close feedback modal after submission
       } catch (error) {
         console.error('Error submitting feedback:', error);
@@ -181,6 +186,9 @@ const Recipes = () => {
       <nav className="navbar">
         <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
         <Link to="/fov" className="favourites">Favourites</Link>
+        <div className="user-info">
+          {username && <span className="username">{username}</span>}
+        </div>
         <button className="logout-btn" onClick={handleLogout}>Logout</button>
       </nav>
       <div className="meal-wrapper">
@@ -192,7 +200,7 @@ const Recipes = () => {
             <input
               type="text"
               className="search-control"
-              placeholder="Enter meal name..."
+              placeholder="Enter meal name or available ingredients..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />

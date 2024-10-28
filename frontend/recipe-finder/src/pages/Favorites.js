@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Recipes.css"; // Assuming you're using the same CSS
+import { useNavigate, Link } from "react-router-dom";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -13,6 +14,12 @@ const Favorites = () => {
   const [showReviewsModal, setShowReviewsModal] = useState(false);
   const [loading, setLoading] = useState(true); // Add loading state
   const userEmail = localStorage.getItem('userEmail');
+
+  const [username, setUsername] = useState(localStorage.getItem('username') || '');
+
+
+  const navigate = useNavigate();
+
 
   // Fetch favorite meals based on their names
   useEffect(() => {
@@ -95,13 +102,27 @@ const Favorites = () => {
     return ingredients;
   };
 
+ 
+
   // Function to handle removal of a favorite meal
   const handleRemoveFavorite = (mealName) => {
-    setFavorites((prevFavorites) => prevFavorites.filter(name => name !== mealName));
-    // Add backend call to remove from favorites here if necessary
+    if (window.confirm("Are you sure you want to remove this meal from favorites?")) {
+      setFavorites((prevFavorites) => prevFavorites.filter(name => name !== mealName));
+      // Add backend call to remove from favorites here if necessary
+    }
   };
 
   return (
+    <div className="container">
+    <nav className="navbar">
+      <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
+     
+      <div className="user-info">
+        {username && <span className="username">{username}</span>}
+      </div>
+      
+    </nav>
+    
     <div className="meal-wrapper">
       <h2 className="title">Your Favorite Meals</h2>
 
@@ -120,6 +141,7 @@ const Favorites = () => {
                 <h3>{meal.strMeal}</h3>
                 <button
                   className="favorites-btn"
+                  onClick={() => handleRemoveFavorite(meal.strMeal)}
                   style={{
                     background: 'transparent',
                     border: 'none',
@@ -233,6 +255,7 @@ const Favorites = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };
