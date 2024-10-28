@@ -63,14 +63,19 @@ const Header = (props) => {
     }
   };
 
-  const openLoginModal = () => setIsLoginModalOpen(true);
+  const openLoginModal = () =>{ setIsLoginModalOpen(true);
+    setIsSignupModalOpen(false);
+  };
   const closeLoginModal = () => {
     setIsLoginModalOpen(false);
     setMessage(''); // Clear message on modal close
     setFormData({ emailOrUsername: '', password: '' }); // Reset form data
   };
 
-  const openSignupModal = () => setIsSignupModalOpen(true);
+  const openSignupModal = () => {setIsSignupModalOpen(true);
+    setIsLoginModalOpen(false);
+
+  };
   const closeSignupModal = () => {
     setIsSignupModalOpen(false);
     setSignupData({ username: '', email: '', password: '' }); // Reset signup form data
@@ -129,7 +134,7 @@ const Header = (props) => {
                 <button type="submit">Login</button>
               </form>
               {message && <p>{message}</p>}
-              <p>Don't have an account? <Link to="/signup">Sign up here</Link></p>
+              <p>Don't have an account? <Link onClick={openSignupModal}>Sign up here</Link></p>
             </div>
           </div>
         </div>
@@ -177,7 +182,7 @@ const Header = (props) => {
                 <button type="submit">Create Account</button>
               </form>
               {message && <p>{message}</p>}
-              <p>Already have an account? <Link to="/login">Login here</Link></p>
+              <p>Already have an account? <Link onClick={openLoginModal}>Login here</Link></p>
             </div>
           </div>
         </div>
