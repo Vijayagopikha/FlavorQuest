@@ -75,15 +75,9 @@ const Header = (props) => {
     setIsSignupModalOpen(false);
     setSignupData({ username: '', email: '', password: '' }); // Reset signup form data
   };
-  const switchToSignupModal = () => {
-    closeLoginModal();  // Close the login modal
-    openSignupModal();  // Open the signup modal
-  };
+ 
 
-  const switchToLoginModal = () => {
-    closeSignupModal(); // Close the signup modal
-    openLoginModal();   // Open the login modal
-  };
+ 
   return (
     <div className={`header-container ${props.bgClass}`}>
       <div className="nav-links">

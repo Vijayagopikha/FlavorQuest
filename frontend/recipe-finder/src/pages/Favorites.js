@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Recipes.css"; // Assuming you're using the same CSS
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { REACT_APP_BACKEND_URL } from "../constants/constant";
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -15,7 +15,7 @@ const Favorites = () => {
   const [loading, setLoading] = useState(true); // Add loading state
   const userEmail = localStorage.getItem('userEmail');
 
-  const [username, setUsername] = useState(localStorage.getItem('username') || '');
+  const username =localStorage.getItem('username');
 
 
   const navigate = useNavigate();
@@ -46,6 +46,7 @@ const Favorites = () => {
   // Fetch favorite meals from the backend
   useEffect(() => {
     const fetchFavorites = async () => {
+      setReviews('');
       setLoading(true); // Start loading
       try {
         const response = await fetch(`${REACT_APP_BACKEND_URL}/api/favorites/getAll`, {
