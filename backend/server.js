@@ -22,6 +22,9 @@ app.use('/api/favorites', favoritesRoute);
 //feedback
 app.use("/api/feedback", feedbackRoutes);
 
+app.get('/',(req,res)=>{
+  req.setEncoding('Hello Makkalae! Welcome to receipe finder');
+})
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
