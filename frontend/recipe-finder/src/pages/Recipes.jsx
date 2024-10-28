@@ -15,8 +15,7 @@ const Recipes = () => {
   const [showMeal, setShowMeal] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [username, setUsername] = useState(localStorage.getItem('username') || '');
-  const [email, setEmail] = useState(localStorage.getItem('userEmail') || '');
-  const [message, setMessage] = useState('');
+  const email =localStorage.getItem('userEmail') || '';
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [loading, setLoading] = useState(false); // Add loading state
 
@@ -80,10 +79,7 @@ const Recipes = () => {
     setShowIngredients(true);
   };
 
-  const handleFeedback = (event) => {
-    setFeedback(event.target.value);
-  };
-
+  
   const submitFeedback = async () => {
     if (feedback.trim() && username.trim() && email.trim()) {
       try {
@@ -103,15 +99,12 @@ const Recipes = () => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-
-        const data = await response.json();
-        setMessage('Feedback submitted successfully!');
+        alert('feedback submitted successfullly');
         setFeedback(''); // Clear feedback input
         
         setShowFeedbackModal(false); // Close feedback modal after submission
       } catch (error) {
         console.error('Error submitting feedback:', error);
-        setMessage('Error submitting feedback. Please try again.');
       }
     } else {
       alert("Please fill in all fields: Meal ID, Username, Email, and Feedback.");
