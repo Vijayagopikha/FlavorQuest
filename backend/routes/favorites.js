@@ -56,6 +56,31 @@ router.post('/getAll', async (req, res) => {
     res.status(500).json({ error: 'An error occurred while retrieving favorite meals' });
   }
 });
+// Delete a favorite meal by email and mealName
+router.delete('/delete', async (req, res) => {
+  const { email, mealName } = req.body;
 
+  if (!email || !mealName) {
+    return res.status(400).json({ msg: 'Email and meal name are required' });
+  }
+
+  try {
+    const favorite = await Favorites.findOneAndUpdate(
+      { email },
+      { $pull: { mealName: mealName } },  // Remove the specified mealName from the array
+      { new: true }  // Return the updated document
+    );
+
+    if (!favorite) {
+      return res.status(404).json({ msg: 'Favorite meal not found or already removed' });
+    }
+
+    res.status(200).json({ msg: 'Favorite meal removed successfully', favorite });
+    console.log(success);
+  } catch (error) {
+    console.error('Error removing favorite meal:', error);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
 
 module.exports = router;

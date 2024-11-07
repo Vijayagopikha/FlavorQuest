@@ -71,7 +71,7 @@ body{
     color: var(--tenne-tawny);
 }
 .search-btn{
-    width: 55px;
+    width: 75px;
     height: 55px;
     font-size: 1.8rem;
     background: var(--tenne-tawny);
@@ -87,6 +87,24 @@ body{
 }
 .search-btn:hover{
     background: var(--tenne-tawny-dark);
+}
+.search-type{
+    /*padding: 0.8rem ;*/
+    font-size: 1rem;
+    
+    font-family: inherit;
+    outline: 0;
+    border: 1px solid var(--tenne-tawny);
+    color: var(--tenne-tawny);
+    border-radius: 2rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+
+
+.search-type option{
+    padding: 10px;
 }
 .meal-result{
     margin-top: 4rem;

@@ -18,10 +18,17 @@ const Recipes = () => {
   const email =localStorage.getItem('userEmail') || '';
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [loading, setLoading] = useState(false); // Add loading state
+  const [searchType, setSearchType] = useState('mainDish');
+  const [areas, setAreas] = useState([]);
+  const [selectedArea, setSelectedArea] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [filteredMeals, setFilteredMeals] = useState([]); // New array to store meals based on selected area
+  const [categoryMeals, setCategoryMeals] = useState([]); // New array to store meals filtered by category
 
   const navigate = useNavigate();
 
-  const handleSearch = async (e) => {
+  const handleSearch1 = async (e) => {
     e.preventDefault();
     const ingredients = query.split(',').map(ingredient => ingredient.trim().toLowerCase());
     if (ingredients.length === 0) return;
@@ -54,6 +61,138 @@ const Recipes = () => {
       setLoading(false); // Set loading to false when fetch is done
     }
   };
+ 
+   // Fetch areas (for area search type)
+  useEffect(() => {
+    const fetchAreas = async () => {
+      try {
+        const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+        const data = await response.json();
+        setAreas(data.meals || []);
+      } catch (error) {
+        console.error('Error fetching areas:', error);
+      }
+    };
+
+    fetchAreas();
+  }, []);
+
+
+ 
+
+    // Handle area-based search
+    const handleSearch2 = async (e, area) => {
+      e.preventDefault();
+      setLoading(true); // Set loading to true when starting the fetch
+  
+      try {
+        // Fetch meals filtered by the specified area
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+        const data = await response.json();
+        
+        const mealAreas = data.meals || []; // Set an empty array if meals is undefined
+  
+        // Fetch ingredient details for each meal
+        const mealsWithIngredients = await Promise.all(mealAreas.map(async (meal) => {
+          // Fetch details for each meal (including ingredients)
+          const mealDetailsResponse = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`);
+          const mealDetailsData = await mealDetailsResponse.json();
+          const mealDetails = mealDetailsData.meals[0] || {};
+          
+          return {
+            ...meal,
+            ingredients: mealDetails,
+          };
+        }));
+  
+        setMeals(mealsWithIngredients); // Store meals with ingredient details
+      } catch (error) {
+        console.error('Error fetching meals by area:', error);
+        setMeals([]); // Clear previous filtered meals data if there’s an error
+      } finally {
+        setLoading(false); // Set loading to false when fetch is done
+      }
+    };
+  
+  
+
+  // Fetch categories (for category search type)
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+        const data = await response.json();
+        setCategories(data.meals || []);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+// Handle search by category
+const handleSearch3 = async (category) => {
+  if (!category) return;
+
+  setLoading(true); // Set loading to true when starting the fetch
+
+  try {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+    const data = await response.json();
+    
+    const mealsByCategory = data.meals || []; // Set an empty array if meals is undefined
+
+    // Fetch ingredient details for each meal
+    const mealsWithIngredients = await Promise.all(mealsByCategory.map(async (meal) => {
+      // Fetch details for each meal (including ingredients)
+      const mealDetailsResponse = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`);
+      const mealDetailsData = await mealDetailsResponse.json();
+      const mealDetails = mealDetailsData.meals[0] || {};
+
+      return {
+        ...meal,
+        ingredients: mealDetails,
+      };
+    }));
+
+    setCategoryMeals(mealsWithIngredients); // Store meals with ingredient details
+  } catch (error) {
+    console.error('Error fetching meals by category:', error);
+    setCategoryMeals([]); // Clear previous meals data if there’s an error
+  } finally {
+    setLoading(false); // Set loading to false when fetch is done
+  }
+};
+
+
+  //calling
+  const handleSearch = async (e) => {
+    e.preventDefault();
+  
+    switch (searchType) {
+      case 'mainDish':
+        await handleSearch1(e);
+        break;
+
+        case 'ingredients':
+          await handleSearch1(e);
+          break;
+        
+      case 'area':
+        await handleSearch2(e);
+        break;
+        
+      case 'category':
+        await handleSearch3(e);
+        break;
+        
+      default:
+        console.error("Invalid search type");
+    }
+  };
+  
+  
   //dashboard
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
@@ -175,6 +314,22 @@ const Recipes = () => {
     window.location.href = '/';
   }
 
+  // Get the placeholder based on the search type
+  const getPlaceholder = () => {
+    switch (searchType) {
+      case 'mainDish':
+        return 'Search by Main Dish';
+      case 'ingredients':
+        return 'Search by Ingredients';
+      case 'area':
+        return 'Select Area';
+      case 'category':
+        return 'Select Category';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div className="container">
       <nav className="navbar">
@@ -191,18 +346,67 @@ const Recipes = () => {
         <div className="meal-search">
           <cite>Search your favorite meal</cite>
           <form className="meal-search-box" onSubmit={handleSearch}>
-            <input
-              type="text"
-              className="search-control"
-              placeholder="Enter meal name or available ingredients..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button type="submit" className="search-btn">
-              <i className="fa fa-search"></i>
-            </button>
-          </form>
-        </div>
+      <div className="search-options">
+        <select
+          className="search-type"
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+        >
+          <option value="mainDish">By Main Dish</option>
+          <option value="ingredients">By Ingredients</option>
+          <option value="area">By Area</option>
+          <option value="category">By Category</option>
+        </select>
+      </div>
+
+      {/* Show dropdown for Area search type */}
+      {searchType === 'area' && (
+        <select
+          className="search-control"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        >
+          <option value="">Select Area</option>
+          {areas.map((area) => (
+            <option key={area.strArea} value={area.strArea}>
+              {area.strArea}
+            </option>
+          ))}
+        </select>
+      )}
+
+      {/* Show dropdown for Category search type */}
+      {searchType === 'category' && (
+        <select
+          className="search-control"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        >
+          <option value="">Select Category</option>
+          {categories.map((category) => (
+            <option key={category.strCategory} value={category.strCategory}>
+              {category.strCategory}
+            </option>
+          ))}
+        </select>
+      )}
+
+      {/* For Main Dish and Ingredients, just an input box */}
+      {(searchType === 'mainDish' || searchType === 'ingredients') && (
+        <input
+          type="text"
+          className="search-control"
+          placeholder={getPlaceholder()}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+      )}
+
+      <button type="submit" className="search-btn">
+        <i className="fa fa-search"></i>
+      </button>
+    </form>
+  </div>
 
         <div className="meal-result" id="meal">
           {loading ? (

@@ -13,8 +13,8 @@ const Favorites = () => {
   const [reviews, setReviews] = useState([]);
   const [showReviewsModal, setShowReviewsModal] = useState(false);
   const [loading, setLoading] = useState(true); // Add loading state
+  
   const userEmail = localStorage.getItem('userEmail');
-
   const username =localStorage.getItem('username');
 
 
@@ -72,6 +72,7 @@ const Favorites = () => {
     fetchFavorites();
   }, [userEmail]);
 
+
   // Show meal ingredients
   const showMealIngredients = (meal) => {
     setSelectedMeal(meal);
@@ -104,14 +105,34 @@ const Favorites = () => {
   };
 
  
-
-  // Function to handle removal of a favorite meal
-  const handleRemoveFavorite = (mealName) => {
-    if (window.confirm("Are you sure you want to remove this meal from favorites?")) {
+// Function to handle removal of a favorite meal
+const handleRemoveFavorite = async (mealName) => {
+  if (window.confirm("Are you sure you want to remove this meal from favorites?")) {
+    try {
+      // Remove from frontend state
       setFavorites((prevFavorites) => prevFavorites.filter(name => name !== mealName));
-      // Add backend call to remove from favorites here if necessary
+
+      // Send DELETE request to backend to remove from database
+      const response = await fetch(`${REACT_APP_BACKEND_URL}/api/favorites/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: userEmail, mealName }),  // Send email and mealName
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        console.log(result.msg);
+      } else {
+        console.error(result.msg);
+      }
+    } catch (error) {
+      console.error("Error removing favorite meal:", error);
     }
-  };
+  }
+};
+
 
   return (
     <div className="container">
