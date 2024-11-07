@@ -496,6 +496,7 @@ body{
   /* CSS for modal content */
   .modal-content {
     background: #fff;
+    color: #333;
     padding: 2rem;
     border-radius: 8px;
     max-width: 500px;
