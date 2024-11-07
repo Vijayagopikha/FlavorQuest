@@ -23,6 +23,12 @@ const feedbackSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  rating: {  // Added rating field
+    type: Number,
+    required: true,
+    min: 1,  // Ensure rating is between 1 and 5
+    max: 5,
+  },
   date: {
     type: Date,
     default: Date.now,

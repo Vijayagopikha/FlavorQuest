@@ -14,17 +14,23 @@ const Recipes = () => {
   const [favorites, setFavorites] = useState([]);
   const [showMeal, setShowMeal] = useState(false);
   const [feedback, setFeedback] = useState('');
-  const [username, setUsername] = useState(localStorage.getItem('username') || '');
-  const email =localStorage.getItem('userEmail') || '';
+  
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [rating, setRating] = useState(0); // Initialize rating to 0 or any default value
+  const [reviews, setReviews] = useState([]); // State to store reviews from the backend
   const [loading, setLoading] = useState(false); // Add loading state
   const [searchType, setSearchType] = useState('mainDish');
   const [areas, setAreas] = useState([]);
-  const [selectedArea, setSelectedArea] = useState('');
+  const [area, setSelectedArea] = useState('');
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [filteredMeals, setFilteredMeals] = useState([]); // New array to store meals based on selected area
   const [categoryMeals, setCategoryMeals] = useState([]); // New array to store meals filtered by category
+
+
+  const [username, setUsername] = useState(localStorage.getItem('username') || '');
+  const email =localStorage.getItem('userEmail') || '';
+
 
   const navigate = useNavigate();
 
@@ -156,10 +162,10 @@ const handleSearch3 = async (category) => {
       };
     }));
 
-    setCategoryMeals(mealsWithIngredients); // Store meals with ingredient details
+    setMeals(mealsWithIngredients); // Store meals with ingredient details
   } catch (error) {
     console.error('Error fetching meals by category:', error);
-    setCategoryMeals([]); // Clear previous meals data if there’s an error
+    setMeals([]); // Clear previous meals data if there’s an error
   } finally {
     setLoading(false); // Set loading to false when fetch is done
   }
@@ -180,11 +186,11 @@ const handleSearch3 = async (category) => {
           break;
         
       case 'area':
-        await handleSearch2(e);
+        await handleSearch2(e,area);
         break;
         
       case 'category':
-        await handleSearch3(e);
+        await handleSearch3(selectedCategory);
         break;
         
       default:
@@ -218,9 +224,21 @@ const handleSearch3 = async (category) => {
     setShowIngredients(true);
   };
 
-  
+  useEffect(() => {
+    // Fetch all feedback data from backend
+    const fetchFeedbackData = async () => {
+      try {
+        const response = await axios.get(`${REACT_APP_BACKEND_URL}/api/feedback`);
+        setReviews(response.data); // Populate reviews with fetched data
+      } catch (error) {
+        console.error("Error fetching feedback data:", error);
+      }
+    };
+    fetchFeedbackData();
+  }, []);
+
   const submitFeedback = async () => {
-    if (feedback.trim() && username.trim() && email.trim()) {
+    if (feedback.trim() && username.trim() && email.trim() && rating) {
       try {
         const response = await fetch(`${REACT_APP_BACKEND_URL}/api/feedback`, {
           method: 'POST',
@@ -232,6 +250,7 @@ const handleSearch3 = async (category) => {
             username,
             email,
             feedback,
+            rating,
           }),
         });
 
@@ -239,14 +258,22 @@ const handleSearch3 = async (category) => {
           throw new Error('Network response was not ok');
         }
         alert('feedback submitted successfullly');
+       
         setFeedback(''); // Clear feedback input
-        
+        setRating(0); // Clear rating after submission
         setShowFeedbackModal(false); // Close feedback modal after submission
+         // Refresh feedback data after submission
+         const newFeedback = {
+          username,
+          feedback,
+          rating,
+        };
+        setReviews([...reviews, newFeedback]); // Add new feedback to the displayed list
       } catch (error) {
         console.error('Error submitting feedback:', error);
       }
     } else {
-      alert("Please fill in all fields: Meal ID, Username, Email, and Feedback.");
+      alert("Please fill Feedback.");
     }
   };
 
@@ -278,12 +305,12 @@ const handleSearch3 = async (category) => {
     }
   };
 
-  const reviews = [
+  /*const reviews = [
     { id: 1, name: "John Doe", feedback: "Amazing recipe! I loved it." },
     { id: 2, name: "Jane Smith", feedback: "Simple and delicious." },
     { id: 3, name: "Alice Johnson", feedback: "Tried this with my family, and it was a hit!" },
     { id: 4, name: "Chris Lee", feedback: "Easy to follow, and the taste was great!" }
-  ];
+  ];*/
 
   const handleReviews = () => {
     setShowReviewsModal(true);
@@ -352,6 +379,7 @@ const handleSearch3 = async (category) => {
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}
         >
+          
           <option value="mainDish">By Main Dish</option>
           <option value="ingredients">By Ingredients</option>
           <option value="area">By Area</option>
@@ -364,7 +392,9 @@ const handleSearch3 = async (category) => {
         <select
           className="search-control"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {setSelectedArea(e.target.value);
+          setQuery(e.target.value);
+          }}
         >
           <option value="">Select Area</option>
           {areas.map((area) => (
@@ -380,7 +410,7 @@ const handleSearch3 = async (category) => {
         <select
           className="search-control"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {setQuery(e.target.value);setSelectedCategory(e.target.value);}}
         >
           <option value="">Select Category</option>
           {categories.map((category) => (
@@ -521,37 +551,41 @@ const handleSearch3 = async (category) => {
                 <button className="btn-feedback" onClick={handleFeedbackModal}>Add Your Feedback</button>
               </div>
 
-              {/* Reviews Modal */}
+              
               {showReviewsModal && (
-                <div className="modal-overlay">
-                  <div className="modal-content">
-                    <button className="modal-close-btn" onClick={closeModal}>
-                      &times;
-                    </button>
-                    <h3>Reviews</h3>
-                    {reviews.map((review) => (
-                      <div key={review.id} className="review-item">
-                        <strong>{review.name}</strong>
-                        <p>{review.feedback}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {showFeedbackModal && (
-                <div className="modal-overlay">
-                  <div className="modal-content">
-                    <button className="modal-close-btn" onClick={closeModal}>&times;</button>
-                    <h3>Add Your Feedback</h3>
-                    <textarea
-                      value={feedback}
-                      onChange={(e) => setFeedback(e.target.value)}
-                      placeholder="Write your feedback here..."
-                    ></textarea>
-                    <button className="submit-feedback-btn" onClick={submitFeedback}>Submit Feedback</button>
-                  </div>
-                </div>
-              )}
+        <div className="modal">
+          <h2>Reviews</h2>
+          <button onClick={closeModal}>✖</button>
+          <ul>
+            {reviews.map((review, index) => (
+              <li key={index}>
+                <strong>{review.username}</strong>: {review.feedback} <span>Rating: {review.rating}/5</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+             {showFeedbackModal && (
+        <div className="modal">
+          <h2>Submit Feedback</h2>
+          <button onClick={closeModal}>✖</button>
+          <textarea
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
+            placeholder="Write your feedback here"
+          />
+          <input
+            type="number"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+            placeholder="Rate 1-5"
+            min="1"
+            max="5"
+          />
+          <button onClick={submitFeedback}>Submit</button>
+        </div>
+      )}
+
 
             </div>
           </div>

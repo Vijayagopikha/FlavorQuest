@@ -76,7 +76,7 @@ router.delete('/delete', async (req, res) => {
     }
 
     res.status(200).json({ msg: 'Favorite meal removed successfully', favorite });
-    console.log(success);
+   
   } catch (error) {
     console.error('Error removing favorite meal:', error);
     res.status(500).json({ msg: 'Server error' });
