@@ -1,0 +1,193 @@
+/* Container for the entire dashboard */
+.dashboard-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Back button styling */
+  .backs-btn {
+    background-color: #d65108;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .backs-btn:hover {
+    background-color: #d65008dc;
+  }
+  
+  /* User icon container for centering and decoration */
+  .user-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  /* Enlarge user icon and add background circle */
+  .user-icon {
+    font-size: 120px; /* Increase size */
+    color: #313131; /* Icon color */
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Background circle behind the user icon */
+  .user-icon-container::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, #383838, #585858);
+    border-radius: 50%;
+    opacity: 0.1;
+    z-index: 0;
+  }
+  
+  /* Add animated ring effect around the user icon */
+  .user-icon-container::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border: 4px dashed #242424;
+    border-radius: 50%;
+    animation: rotateRing 8s linear infinite;
+    z-index: 0;
+    opacity: 0.3;
+  }
+  
+  
+  
+  /* Style for the edit icon */
+  .edit-icon {
+    position: absolute;
+    right: 180px;
+    bottom: -20px;
+    cursor: pointer;
+    color: #d65008dc;
+    background-color: #fabc9adc;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 28px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .edit-icon:hover {
+    color: #007bff;
+    border-color: #007bff;
+  }
+  
+  
+  /* Profile section and form styling */
+  .dashboard-section {
+    margin-bottom: 20px;
+  }
+  
+  h3 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  p, label {
+    display: block;
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .edit-form label {
+    font-weight: 800;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .edit-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Save and Cancel buttons */
+  .save-btn, .cancel-btn {
+    width: 48%;
+    padding: 10px;
+    margin: 5px 1%;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .save-btn {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .save-btn:hover {
+    background-color: #218838;
+  }
+  
+  .cancel-btn {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #c82333;
+  }
+  
+  /* Loader for loading state */
+  .loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ccc;
+    border-top: 5px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Dashboard content sections */
+  .dashboard-content {
+    text-align: left;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  ul li {
+    margin-bottom: 8px;
+  }
+  
+  ul li a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  ul li a:hover {
+    text-decoration: underline;
+  }

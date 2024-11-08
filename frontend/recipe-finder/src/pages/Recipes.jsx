@@ -362,9 +362,12 @@ const handleSearch3 = async (category) => {
       <nav className="navbar">
         <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
         <Link to="/fov" className="favourites">Favourites</Link>
+        <Link to="/user">
         <div className="user-info">
+
           {username && <span className="username">{username}</span>}
         </div>
+        </Link>
         <button className="logout-btn" onClick={handleLogout}>Logout</button>
       </nav>
       <div className="meal-wrapper">

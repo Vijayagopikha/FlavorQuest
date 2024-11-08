@@ -56,6 +56,27 @@ router.post('/getAll', async (req, res) => {
     res.status(500).json({ error: 'An error occurred while retrieving favorite meals' });
   }
 });
+router.get('/', async (req, res) => {
+  const { email } = req.query; // Make sure to use query params instead of body
+
+  try {
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+
+    const favorite = await Favorites.findOne({ email });
+
+    if (!favorite) {
+      return res.status(404).json({ error: 'No favorite meals found for this email' });
+    }
+
+    // Return the count of the mealName array
+    res.status(200).json({ count: favorite.mealName.length });
+  } catch (error) {
+    console.error('Error retrieving favorite meals:', error);
+    res.status(500).json({ error: 'An error occurred while retrieving favorite meals' });
+  }
+});
 // Delete a favorite meal by email and mealName
 router.delete('/delete', async (req, res) => {
   const { email, mealName } = req.body;

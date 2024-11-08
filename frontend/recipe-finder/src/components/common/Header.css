@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #0f0f0f;
     text-align: center;
     background-color: var(--tenne-tawny-dark);
     font-family: 'Poppins', sans-serif;
@@ -154,4 +154,46 @@
     cursor: pointer; /* Pointer cursor */
     color: #333; /* Color for the close button */
     float: right; /* Position to the right */
+}
+/* Basic styles for the dropdown */
+.language-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px; /* Optional: adds some space between the dropdown and buttons */
+}
+
+.dropdown-btn {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dropdown-btn:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-menu button {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+    background-color: #f1f1f1;
 }

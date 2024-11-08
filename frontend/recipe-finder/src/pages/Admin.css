@@ -1,0 +1,201 @@
+.admin-dashboard {
+    padding: 20px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+  }
+  
+  .dashboard-title {
+    text-align: center;
+    margin-top: -50px;
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .add-recipe-section,
+  .recipes-section {
+    margin: 20px 0;
+    align-items: center;
+    box-shadow: #aaa;
+    border-radius: 2px;
+  }
+  h2{
+    color: #e46622;
+    font-weight: 700;
+  }
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 400px;
+    margin-bottom: 20px;
+  }
+  
+  .input-field {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 550px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;  /* Smooth transition for all properties */
+  }
+  
+  .input-field:focus {
+    outline: none;  /* Remove the default focus outline */
+    border-color: #ee6a22;  /* Green border when focused */
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);  /* Subtle green glow */
+  }
+  
+  .input-field:hover {
+    border-color: #ee6a22;  /* Light green border on hover */
+  }
+  
+  .input-field::placeholder {
+    color: #aaa;  /* Lighter placeholder text */
+    transition: color 0.3s ease;
+  }
+  
+  .input-field:focus::placeholder {
+    color: #ee6a22;  /* Change placeholder color when focused */
+  }
+  
+  .add-btn {
+    padding: 12px 20px;
+    background-color: #d65108;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;  /* Smooth transition */
+  }
+  
+  .add-btn:hover {
+    background-color: #d65008cf;  /* Darker green on hover */
+  }
+  
+  .add-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Add a subtle hover effect on the entire input-group */
+  .input-group:hover {
+    transform: translateY(-3px);  /* Slight upward movement when hovered */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+  
+  .recipes-section {
+    padding-top: 20px;
+  }
+  .dash{
+     font-size: 29px;
+     justify-content: space-between;
+    margin-left: 100px;
+   font-weight:700 ;
+  }
+  
+  .recipe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .recipe-header h4 {
+    margin: 0;
+    font-size: 1.7rem;
+  }
+  
+  .recipe-instructions {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 10;
+  overflow: hidden;
+}
+
+  
+  .back-btn,
+.logout-btn {
+    border: none;
+    background-color: var(--tenne-tawny); /* Use theme color */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+  .logout-btn{
+    margin-right: 20px;
+    margin-left: -5rem;
+}
+  
+  .back-btn:hover,
+  .logout-btn:hover {
+    background-color: #d65008a9;
+  }
+  .recipes-list {
+    display: flex;
+    flex-wrap: wrap;  /* Allow cards to wrap to the next line when necessary */
+    justify-content: flex-start;  /* Align items to the start of the row */
+    gap: 90px;
+    margin-left: 150px;  /* Adds space between each card */
+  }
+  
+  .recipe-card {
+    width: 350px;  /* Set width of each card */
+    border: 1px solid #ccc;  /* Optional: border for clarity */
+    
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;  /* Center-align the content inside the card */
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;  /* Arrange items inside the card vertically */
+    justify-content: space-between;  /* Ensure space between elements in the card */
+  }
+  .recipe-img {
+    width: 100%;
+    height: 300px;  /* Set a fixed height for images */
+    object-fit: cover;  /* Ensure the image covers the space without distorting */
+    border-radius: 10px;
+  }
+  .recipe-title {
+    font-size: 25px;
+    color: #0e0e0e;
+    font-weight: 600;
+    font-family: Arial, sans-serif;
+  }
+  .recipe-category {
+    font-size: 17px;
+    color: #ee5c3f;
+  }
+  
+  .delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-btn:hover {
+    background-color: #d32f2f;
+  }
