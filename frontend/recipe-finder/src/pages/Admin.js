@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import './Admin.css';
 import { REACT_APP_BACKEND_URL } from "../constants/constant";
+import './i18n'; 
+
+import { useTranslation } from 'react-i18next';
 
 const AdminDashboard = () => {
   const [name, setName] = useState('');
@@ -14,7 +17,7 @@ const AdminDashboard = () => {
   const [recipes, setRecipes] = useState([]); // State to store recipes
 
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   // Fetch the current list of recipes when the component mounts
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -75,9 +78,9 @@ const AdminDashboard = () => {
     <div className="admin-dashboard">
        
     <nav className="navbar">
-      <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
+      <button className="back-btn" onClick={() => navigate(-1)}>{t('back')}</button>
     
-      <button className="logout-btn" onClick={handleLogout}>Logout</button>
+      <button className="logout-btn" onClick={handleLogout}>{t('logout')}</button>
       
       
     </nav>

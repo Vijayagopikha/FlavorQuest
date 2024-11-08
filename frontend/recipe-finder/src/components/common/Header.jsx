@@ -141,10 +141,10 @@ const Header = (props) => {
           <div className="login-modal">
             <button className="close-modal-btn" onClick={closeLoginModal}>&times;</button>
             <div className="login-form">
-              <h2>Login</h2>
+              <h2>{t('login_modal.title')}</h2>
               <form onSubmit={onSubmit}>
                 <div>
-                  <label>Email or Username</label>
+                  <label>{t('login_modal.email_or_username')}</label>
                   <input
                     type="text"
                     name="emailOrUsername"
@@ -154,7 +154,7 @@ const Header = (props) => {
                   />
                 </div>
                 <div>
-                  <label>Password</label>
+                  <label>{t('login_modal.password')}</label>
                   <input
                     type="password"
                     name="password"
@@ -163,10 +163,10 @@ const Header = (props) => {
                     required
                   />
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit">{t('login_modal.submit_button')}</button>
               </form>
               {message && <p>{message}</p>}
-              <p>Don't have an account? <Link onClick={openSignupModal}>Sign up here</Link></p>
+              <p>{t('login_modal.no_account')}<Link onClick={openSignupModal}>{t('login_modal.signup_link')}</Link></p>
             </div>
           </div>
         </div>
@@ -178,10 +178,10 @@ const Header = (props) => {
           <div className="signup-modal">
             <button className="close-modal-btn" onClick={closeSignupModal}>&times;</button>
             <div className="signup-form">
-              <h2>Sign Up</h2>
+              <h2>{t('signup_modal.title')}</h2>
               <form onSubmit={onSignupSubmit}>
                 <div>
-                  <label>Username</label>
+                  <label>{t('signup_modal.username')}</label>
                   <input
                     type="text"
                     name="username"
@@ -191,7 +191,7 @@ const Header = (props) => {
                   />
                 </div>
                 <div>
-                  <label>Email</label>
+                  <label>{t('signup_modal.email')}</label>
                   <input
                     type="email"
                     name="email"
@@ -201,7 +201,7 @@ const Header = (props) => {
                   />
                 </div>
                 <div>
-                  <label>Password</label>
+                  <label>{t('signup_modal.password')}</label>
                   <input
                     type="password"
                     name="password"
@@ -211,10 +211,10 @@ const Header = (props) => {
                     minLength="6"
                   />
                 </div>
-                <button type="submit">Create Account</button>
+                <button type="submit">{t('signup_modal.submit_button')}</button>
               </form>
               {message && <p>{message}</p>}
-              <p>Already have an account? <Link onClick={openLoginModal}>Login here</Link></p>
+              <p>{t('signup_modal.has_account')} <Link onClick={openLoginModal}>{t('signup_modal.login_link')}</Link></p>
             </div>
           </div>
         </div>

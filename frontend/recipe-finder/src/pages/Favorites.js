@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./Recipes.css"; // Assuming you're using the same CSS
 import { useNavigate } from "react-router-dom";
 import { REACT_APP_BACKEND_URL } from "../constants/constant";
+import './i18n'; 
+
+import { useTranslation } from 'react-i18next';
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
   const [meals, setMeals] = useState([]);
@@ -19,6 +22,8 @@ const Favorites = () => {
 
 
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
+  const { t } = useTranslation();
 
 
   // Fetch favorite meals based on their names
@@ -137,7 +142,7 @@ const handleRemoveFavorite = async (mealName) => {
   return (
     <div className="container">
     <nav className="navbar">
-      <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
+      <button className="back-btn" onClick={() => navigate(-1)}>{t('back')}</button>
      
       <div className="user-info">
         {username && <span className="username">{username}</span>}
@@ -191,10 +196,10 @@ const handleRemoveFavorite = async (mealName) => {
                 </button>
                 <div className="button-group">
                   <button className="recipe-btn" onClick={() => showMealDetails(meal)}>
-                    Get Recipe
+                  {t('getRecipe')}
                   </button>
                   <button className="ingredients-btn" onClick={() => showMealIngredients(meal)}>
-                    Get Ingredients
+                  {t('getIngredients')}
                   </button>
                 </div>
               </div>
@@ -209,7 +214,7 @@ const handleRemoveFavorite = async (mealName) => {
         <div className="meal-details-dynamic showRecipe">
           <button className="recipe-close-btn" onClick={() => setShowIngredients(false)}>&times;</button>
           <div className="meal-details-content">
-            <h3>Ingredients:</h3>
+            <h3>{t('ingredients')}</h3>
             <ol>
               {getIngredients(selectedMeal).map((ingredient, index) => (
                 <li key={index}>{ingredient}</li>

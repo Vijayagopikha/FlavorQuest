@@ -4,6 +4,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { REACT_APP_BACKEND_URL } from "../constants/constant";
+import './i18n'; 
+
+import { useTranslation } from 'react-i18next';
 
 const Recipes = () => {
   const [meals, setMeals] = useState([]);
@@ -24,13 +27,13 @@ const Recipes = () => {
   const [area, setSelectedArea] = useState('');
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [filteredMeals, setFilteredMeals] = useState([]); // New array to store meals based on selected area
-  const [categoryMeals, setCategoryMeals] = useState([]); // New array to store meals filtered by category
-
+ 
 
   const [username, setUsername] = useState(localStorage.getItem('username') || '');
   const email =localStorage.getItem('userEmail') || '';
 
+ 
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -345,13 +348,13 @@ const handleSearch3 = async (category) => {
   const getPlaceholder = () => {
     switch (searchType) {
       case 'mainDish':
-        return 'Search by Main Dish';
+        return t('searchByMainDish');
       case 'ingredients':
-        return 'Search by Ingredients';
+        return t('searchByIngredients');
       case 'area':
-        return 'Select Area';
+        return  t('selectArea');
       case 'category':
-        return 'Select Category';
+        return t('selectCategory');  
       default:
         return '';
     }
@@ -360,21 +363,21 @@ const handleSearch3 = async (category) => {
   return (
     <div className="container">
       <nav className="navbar">
-        <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
-        <Link to="/fov" className="favourites">Favourites</Link>
+        <button className="back-btn" onClick={() => navigate(-1)}>{t('back')}</button>
+        <Link to="/fov" className="favourites">{t('favorites')}</Link>
         <Link to="/user">
         <div className="user-info">
 
           {username && <span className="username">{username}</span>}
         </div>
         </Link>
-        <button className="logout-btn" onClick={handleLogout}>Logout</button>
+        <button className="logout-btn" onClick={handleLogout}>{t('logout')}</button>
       </nav>
       <div className="meal-wrapper">
-        <h2 className="title">Find Your Recipe</h2>
+        <h2 className="title">{t('findYourRecipe')}</h2>
 
         <div className="meal-search">
-          <cite>Search your favorite meal</cite>
+          <cite>{t('searchYourFavoriteMeal')}</cite>
           <form className="meal-search-box" onSubmit={handleSearch}>
       <div className="search-options">
         <select
@@ -383,10 +386,10 @@ const handleSearch3 = async (category) => {
           onChange={(e) => setSearchType(e.target.value)}
         >
           
-          <option value="mainDish">By Main Dish</option>
-          <option value="ingredients">By Ingredients</option>
-          <option value="area">By Area</option>
-          <option value="category">By Category</option>
+          <option value="mainDish">{t('byMainDish')}</option>
+          <option value="ingredients">{t('byIngredients')}</option>
+          <option value="area">{t('byArea')}</option>
+          <option value="category">{t('byCategory')}</option>
         </select>
       </div>
 
@@ -399,7 +402,7 @@ const handleSearch3 = async (category) => {
           setQuery(e.target.value);
           }}
         >
-          <option value="">Select Area</option>
+          <option value="">{t('selectArea')}</option>
           {areas.map((area) => (
             <option key={area.strArea} value={area.strArea}>
               {area.strArea}
@@ -415,7 +418,7 @@ const handleSearch3 = async (category) => {
           value={query}
           onChange={(e) => {setQuery(e.target.value);setSelectedCategory(e.target.value);}}
         >
-          <option value="">Select Category</option>
+          <option value="">{t('selectCategory')}</option>
           {categories.map((category) => (
             <option key={category.strCategory} value={category.strCategory}>
               {category.strCategory}
@@ -491,17 +494,17 @@ const handleSearch3 = async (category) => {
                     </button>
                     <div className="button-group">
                       <button className="recipe-btn" onClick={() => showMealDetails(meal)}>
-                        Get Recipe
+                      {t('getRecipe')}
                       </button>
                       <button className="ingredients-btn" onClick={() => showMealIngredients(meal)}>
-                        Get Ingredients
+                      {t('getIngredients')}
                       </button>
                     </div>
                   </div>
                 </div>
               ))
             ) : (
-            <div className="notFound">No meals found.</div>
+            <div className="notFound">{t('noMealsFound')}</div>
           )}
         </div>
 
@@ -511,7 +514,7 @@ const handleSearch3 = async (category) => {
               &times;
             </button>
             <div className="meal-details-content">
-              <h3>Ingredients:</h3>
+              <h3>{t('ingredients')}</h3>
               <ol >
                 {getIngredients(selectedMeal).map((ingredient, index) => (
                   <li key={index}>{ingredient}</li>
@@ -545,19 +548,19 @@ const handleSearch3 = async (category) => {
                     rel="noreferrer"
                     className="btn-video"
                   >
-                    Video Link
+                   {t('videoLink')}
                   </a>
                 )}
                 <button className="btn-reviews" onClick={handleReviews}>
-                  Reviews
+                {t('reviews')}
                 </button>
-                <button className="btn-feedback" onClick={handleFeedbackModal}>Add Your Feedback</button>
+                <button className="btn-feedback" onClick={handleFeedbackModal}>{t('addYourFeedback')}</button>
               </div>
 
               
               {showReviewsModal && (
         <div className="modal">
-          <h2>Reviews</h2>
+          <h2> {t('reviews')}</h2>
           <button onClick={closeModal}>✖</button>
           <ul>
             {reviews.map((review, index) => (
@@ -570,18 +573,18 @@ const handleSearch3 = async (category) => {
       )}
              {showFeedbackModal && (
         <div className="modal">
-          <h2>Submit Feedback</h2>
+          <h2>{t('submitFeedback')}</h2>
           <button onClick={closeModal}>✖</button>
           <textarea
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
-            placeholder="Write your feedback here"
+            placeholder={t('writeFeedbackPlaceholder')}
           />
           <input
             type="number"
             value={rating}
             onChange={(e) => setRating(e.target.value)}
-            placeholder="Rate 1-5"
+            placeholder={t('ratePlaceholder')}
             min="1"
             max="5"
           />

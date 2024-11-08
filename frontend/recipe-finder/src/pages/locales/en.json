@@ -1,10 +1,70 @@
 {
-    "title": "Our Recipes",
-    "subtitle": "What delicious dish or ingredients are swirling in your mind? Let Tastetrek guide you to the perfect recipe!",
-    "home": "Home",
-    "recipe": "Recipe",
-    "login": "Login",
-    "signup": "Signup",
-    "tasteterk": "TasteTrek"
-  }
+  "title": "Our Recipes",
+  "subtitle": "What delicious dish or ingredients are swirling in your mind? Let Tastetrek guide you to the perfect recipe!",
+  "home": "Home",
+  "recipe": "Recipe",
+  "login": "Login",
+  "signup": "Signup",
+  "tasteterk": "TasteTrek",
+  "login_modal": {
+    "title": "Login",
+    "email_or_username": "Email or Username",
+    "password": "Password",
+    "submit_button": "Login",
+    "no_account": "Don't have an account?",
+    "signup_link": "Sign up here"
+  },
+  "signup_modal": {
+    "title": "Sign Up",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "submit_button": "Create Account",
+    "has_account": "Already have an account?",
+    "login_link": "Login here"
+  },
   
+ 
+
+  "findYourRecipe": "Find Your Recipe",
+  "searchYourFavoriteMeal": "Search your favorite meal",
+  "byMainDish": "By Main Dish",
+  "byIngredients": "By Ingredients",
+  "byArea": "By Area",
+  "byCategory": "By Category",
+  "selectArea": "Select Area",
+  "selectCategory": "Select Category",
+  "noMealsFound": "No meals found.",
+  "ingredients": "Ingredients:",
+  "getRecipe": "Get Recipe",
+  "getIngredients": "Get Ingredients",
+  "videoLink": "Video Link",
+  "reviews": "Reviews",
+  "addYourFeedback": "Add Your Feedback",
+  "submitFeedback": "Submit Feedback",
+  "ratePlaceholder": "Rate 1-5",
+  "writeFeedbackPlaceholder": "Write your feedback here",
+  "searchByMainDish": "Search by Main Dish",
+  "searchByIngredients": "Search by Ingredients",
+  
+  "default": "",
+  "back": "Back",
+  "favorites": "Favorites",
+  "logout": "Logout",
+  "adminDashboard": "Admin Dashboard",
+  "addRecipe": "Add a New Recipe",
+  "recipeName": "Recipe Name",
+  "category": "Category",
+  "instructions": "Instructions",
+  "imageURL": "Image URL",
+  "addRecipeButton": "Add Recipe",
+  "adding": "Adding...",
+  "error": "Error",
+  "newlyAddedRecipes": "Newly Added Recipes",
+  "noRecipes": "No recipes added yet.",
+  "delete": "Delete"
+
+
+  
+  
+}
