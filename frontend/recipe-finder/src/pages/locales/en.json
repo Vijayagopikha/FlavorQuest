@@ -62,7 +62,25 @@
   "error": "Error",
   "newlyAddedRecipes": "Newly Added Recipes",
   "noRecipes": "No recipes added yet.",
-  "delete": "Delete"
+  "delete": "Delete",
+  "loginSuccess": "Logged in successfully",
+  "errorLogin": "Error logging in",
+  "signupSuccess": "Account created successfully",
+  "errorSignup": "Error creating account",
+  "adminLogin": "hoi",
+  "invalidCredentials": "Invalid email or password",
+  "profileTitle": "Your Profile",
+  "username": "Username:",
+  "email": "Email:",
+  "dob": "Date of Birth:",
+  "phoneNumber": "Phone Number:",
+  "totalFavorites": "Total Favorites:",
+  "recommendedForYou": "Recommended for You",
+  "noRecommendations": "No recommendations at the moment.",
+  "editProfile": "Edit Profile",
+  "saveChanges": "Save",
+  "cancelChanges": "Cancel",
+  "yourActivity": "Your Activity"
 
 
   

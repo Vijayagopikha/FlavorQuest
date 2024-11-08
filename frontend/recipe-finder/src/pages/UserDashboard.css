@@ -1,193 +1,270 @@
 /* Container for the entire dashboard */
 .dashboard-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-  }
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background-color: #c2fcff;;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Back button styling */
+.backs-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.backs-btn:hover {
+  background-color: #c0392b;
+}
+
+/* User icon container with decorations */
+.user-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  position: relative;
+  animation: bounceIn 0.8s ease;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.5); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Enlarged user icon with stylish ring */
+.user-icon {
+  font-size: 150px;
+  color: #2c3e50;
+  z-index: 1;
+  transition: color 0.3s;
+}
+
+.user-icon:hover {
+  color: #de9355;
+}
+
+/* Decorative animated ring around user icon */
+.user-icon-container::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border: 5px dotted #626262;
+  border-radius: 50%;
+  animation: rotateRing 4s linear infinite;
+  opacity: 0.4;
+}
+
+
+/* Edit icon styling */
+.edit-icon {
+  position: absolute;
+  right: 257px;
+  bottom: 0;
+  cursor: pointer;
+  color: #f39c12;
+  background-color: #fdf4dc;
+  border-radius: 50%;
+  padding: 8px;
+  font-size: 28px;
+  border: 2px solid #f39c12;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.edit-icon:hover {
+  background-color: #f39c12;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Profile section and form styling */
+.dashboard-section h2 {
+  color: #2c3e50;
+  font-size: 23px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.dashboard-section h3 {
+  color: #34495e;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+p, label {
+  color: #7f8c8d;
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+/* Styling for the editable form */
+.edit-form label {
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
   
-  /* Back button styling */
-  .backs-btn {
-    background-color: #d65108;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .backs-btn:hover {
-    background-color: #d65008dc;
-  }
-  
-  /* User icon container for centering and decoration */
-  .user-icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    position: relative;
-  }
-  
-  /* Enlarge user icon and add background circle */
-  .user-icon {
-    font-size: 120px; /* Increase size */
-    color: #313131; /* Icon color */
-    position: relative;
-    z-index: 1;
-  }
-  
-  /* Background circle behind the user icon */
-  .user-icon-container::before {
-    content: "";
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    background: linear-gradient(135deg, #383838, #585858);
-    border-radius: 50%;
-    opacity: 0.1;
-    z-index: 0;
-  }
-  
-  /* Add animated ring effect around the user icon */
-  .user-icon-container::after {
-    content: "";
-    position: absolute;
-    width: 180px;
-    height: 180px;
-    border: 4px dashed #242424;
-    border-radius: 50%;
-    animation: rotateRing 8s linear infinite;
-    z-index: 0;
-    opacity: 0.3;
-  }
-  
-  
-  
-  /* Style for the edit icon */
-  .edit-icon {
-    position: absolute;
-    right: 180px;
-    bottom: -20px;
-    cursor: pointer;
-    color: #d65008dc;
-    background-color: #fabc9adc;
-    border-radius: 50%;
-    padding: 5px;
-    font-size: 28px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .edit-icon:hover {
-    color: #007bff;
-    border-color: #007bff;
-  }
-  
-  
-  /* Profile section and form styling */
-  .dashboard-section {
-    margin-bottom: 20px;
-  }
-  
-  h3 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  
-  p, label {
-    display: block;
-    color: #555;
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .edit-form label {
-    font-weight: 800;
-    font-size: 20px;
-    color: #333;
-  }
-  
-  .edit-form input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    box-sizing: border-box;
-  }
-  
-  /* Save and Cancel buttons */
-  .save-btn, .cancel-btn {
-    width: 48%;
-    padding: 10px;
-    margin: 5px 1%;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .save-btn {
-    background-color: #28a745;
-    color: #fff;
-  }
-  
-  .save-btn:hover {
-    background-color: #218838;
-  }
-  
-  .cancel-btn {
-    background-color: #dc3545;
-    color: #fff;
-  }
-  
-  .cancel-btn:hover {
-    background-color: #c82333;
-  }
-  
-  /* Loader for loading state */
-  .loader {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #ccc;
-    border-top: 5px solid #007bff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-  }
-  
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-  
-  /* Dashboard content sections */
-  .dashboard-content {
-    text-align: left;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  ul li {
-    margin-bottom: 8px;
-  }
-  
-  ul li a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  ul li a:hover {
-    text-decoration: underline;
-  }
+}
+
+.edit-form {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Adds shadow effect */
+  margin: 20px auto; /* Centers the form and adds margin */
+  width: 70%; /* Adjusts the width of the form */
+  max-width: 600px; /* Limits the maximum width of the form */
+}
+
+
+.edit-form input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 20px 0;
+  border: 2px solid #2980b9;
+  border-radius: 8px;
+  font-size: 18px;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s;
+}
+
+.edit-form input:focus {
+  border-color: #db5834;
+  outline: none;
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.4);
+}
+
+/* Buttons styling */
+.save-btn, .cancel-btn {
+  width: 48%;
+  padding: 12px;
+  margin: 10px 1%;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.save-btn {
+  background-color: #27ae60;
+}
+
+.save-btn:hover {
+  background-color: #229954;
+  transform: scale(1.05);
+}
+
+.cancel-btn {
+  background-color: #e74c3c;
+}
+
+.cancel-btn:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+/* Dashboard content sections */
+.dashboard-content {
+  background: #f0f8ff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+ul li a {
+  color: #db8d34;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+ul li a:hover {
+  color: #1abc9c;
+  text-decoration: underline;
+}
+
+/* Loading spinner */
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #ddd;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 20px auto;
+}
+
+/* Styling for the profile details container */
+/* Styling for the dashboard section with questions and answers */
+.dash {
+  padding: 20px;
+  width: 500px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 12px 24px rgba(114, 71, 71, 0.1);
+  text-align: center;
+}
+
+/* Color for the questions (labels) */
+.dash p3 strong {
+  color: #2c3e50; /* Darker color for questions */
+  font-weight: bold;
+  font-size: 22px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+/* Color for the answers (values) */
+.dash p3 {
+  color: #db6c34; /* Different color for answers */
+  font-size: 20px;
+  margin-left: 10px;
+  display: inline;
+}
+
+/* Additional space between question-answer pairs */
+.dash p3 + br {
+  margin-bottom: 10px;
+}
+
+.form-field {
+  margin-bottom: 15px;
+}
+label p {
+  font-size: 22px;
+  color: #2c3e50; /* Color for labels */
+  font-weight: bold;
+}

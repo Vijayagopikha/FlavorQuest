@@ -22,7 +22,7 @@ const Favorites = () => {
 
 
   const navigate = useNavigate();
-  const { i18n } = useTranslation();
+  
   const { t } = useTranslation();
 
 

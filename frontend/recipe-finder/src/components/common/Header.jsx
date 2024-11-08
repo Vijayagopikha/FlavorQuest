@@ -49,12 +49,12 @@ const Header = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if(formData.emailOrUsername==="admin@gmail.com" && formData.password==="admin"){
-      console.log("hoi");
+      console.log(t('adminLogin'));
       navigate('/admin');
     }else{
       try {
       const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/auth/login`, formData);
-      alert('Logged in successfully');
+      alert(t('loginSuccess'));
       console.log(res.data); // Token or success response
       localStorage.setItem('token', res.data.token); // Store token
       localStorage.setItem('username', res.data.username);
@@ -62,7 +62,7 @@ const Header = (props) => {
       navigate('/recipe'); // Redirect to recipe page
     } catch (err) {
       console.error(err.response?.data || err); // Handle errors
-      alert(err.response?.data.msg || 'Error logging in');
+      alert(t('errorLogin'));
     }
   };
 }
@@ -71,7 +71,7 @@ const Header = (props) => {
     e.preventDefault();
     try {
       const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/auth/signup`, signupData);
-      alert('Account created successfully');
+      alert(t('signupSuccess'));
       console.log(res.data); 
       // Success response
       closeSignupModal();
@@ -79,7 +79,7 @@ const Header = (props) => {
        openLoginModal();
     } catch (err) {
       console.error(err.response?.data || err); // Handle errors
-      alert(err.response?.data.msg || 'Error creating account');
+      alert(t('errorSignup'));
     }
   };
 

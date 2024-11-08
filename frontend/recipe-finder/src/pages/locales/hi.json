@@ -60,7 +60,25 @@
   "error": "त्रुटि",
   "newlyAddedRecipes": "नए जोड़े गए रेसिपी",
   "noRecipes": "अभी तक कोई रेसिपी जोड़ी नहीं गई है।",
-  "delete": "हटाएं"
+  "delete": "हटाएं",
+  "loginSuccess": "सफलतापूर्वक लॉगिन किया गया",
+  "errorLogin": "लॉगिन में त्रुटि",
+  "signupSuccess": "खाता सफलतापूर्वक बन गया",
+  "errorSignup": "खाता बनाने में त्रुटि",
+  "adminLogin": "हाय",
+  "invalidCredentials": "गलत ईमेल या पासवर्ड",
+  "profileTitle": "आपकी प्रोफ़ाइल",
+  "username": "यूज़रनेम:",
+  "email": "ईमेल:",
+  "dob": "जन्म तिथि:",
+  "phoneNumber": "फोन नंबर:",
+  "totalFavorites": "कुल पसंदीदा:",
+  "recommendedForYou": "आपके लिए अनुशंसित",
+  "noRecommendations": "इस समय कोई अनुशंसा नहीं है।",
+  "editProfile": "प्रोफ़ाइल संपादित करें",
+  "saveChanges": "सहेजें",
+  "cancelChanges": "रद्द करें",
+  "yourActivity": "आपकी गतिविधि"
     
       
   }

@@ -85,52 +85,52 @@ const AdminDashboard = () => {
       
     </nav>
       
-      <center><div className="dashboard-title">Admin Dashboard</div></center>
+      <center><div className="dashboard-title">{t('adminDashboard')}</div></center>
       
       <center><div className="add-recipe-section">
-        <h2>Add a New Recipe</h2>
+        <h2>{t('addRecipe')}</h2>
         <br>
         </br>
         <div className="input-group">
           <input
             type="text"
-            placeholder="Recipe Name"
+            placeholder={t('recipeName')}
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="input-field"
           />
           <input
             type="text"
-            placeholder="Category"
+            placeholder={t('category')}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             className="input-field"
           />
           <textarea
-            placeholder="Instructions"
+            placeholder={t('instructions')}
             value={instructions}
             onChange={(e) => setInstructions(e.target.value)}
             className="input-field"
           />
           <input
             type="url"
-            placeholder="Image URL"
+            placeholder={t('imageURL')}
             value={image}
             onChange={(e) => setImage(e.target.value)}
             className="input-field"
           />
           <button onClick={handleAddRecipe} className="add-btn" disabled={loading}>
-            {loading ? 'Adding...' : 'Add Recipe'}
+            {loading ? t('adding') : t('addRecipeButton')}
           </button>
         </div>
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className="error-message">{t('error')}:{error}</p>}
       </div></center>
 
       {/* Newly Added Recipes */}
       <div className="recipes-section">
         <br>
         </br>
-        <div className='dash'>Newly Added Recipes</div>
+        <div className='dash'>{t('newlyAddedRecipes')}</div>
         <br>
         </br>
         {recipes.length > 0 ? (
@@ -145,13 +145,13 @@ const AdminDashboard = () => {
                 <p className="recipe-instructions">{recipe.instructions}</p>
                 <br></br>
                <button onClick={() => handleDeleteRecipe(recipe._id)} className="delete-btn">
-                  Delete
+               {t('delete')}
                 </button>
               </div>
             ))}
           </div>
         ) : (
-          <p>No recipes added yet.</p>
+          <p>{t('noRecipes')}</p>
         )}
       </div>
     </div>
