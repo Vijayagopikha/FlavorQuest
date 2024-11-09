@@ -27,6 +27,10 @@ const Recipes = () => {
   const [area, setSelectedArea] = useState('');
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+
+  //review based filter
+  const [avgrating, setAvgRating] = useState(0);
+  const [selectedRate, setSelectedRate] = useState(0);
  
 
   const [username, setUsername] = useState(localStorage.getItem('username') || '');
@@ -108,10 +112,7 @@ const Recipes = () => {
           const mealDetailsData = await mealDetailsResponse.json();
           const mealDetails = mealDetailsData.meals[0] || {};
           
-          return {
-            ...meal,
-            ingredients: mealDetails,
-          };
+          return mealDetails;
         }));
   
         setMeals(mealsWithIngredients); // Store meals with ingredient details
@@ -159,10 +160,7 @@ const handleSearch3 = async (category) => {
       const mealDetailsData = await mealDetailsResponse.json();
       const mealDetails = mealDetailsData.meals[0] || {};
 
-      return {
-        ...meal,
-        ingredients: mealDetails,
-      };
+      return mealDetails;
     }));
 
     setMeals(mealsWithIngredients); // Store meals with ingredient details
@@ -173,6 +171,39 @@ const handleSearch3 = async (category) => {
     setLoading(false); // Set loading to false when fetch is done
   }
 };
+
+//search by review
+const handleSearch4 = async (e, rate) => {
+  setLoading(true);
+  const recipeArray = [
+    ["Arrabiata", "Beef and Mustard Pie", "Chicken Congee", "Chilli Crab", "Duck Confit", "Egg Drop Soup", "French Onion Soup", "Garlic Prawns", "Honey Balsamic Lamb", "Indian Naan"],
+    ["Jamaican Jerk Chicken", "Katsu Curry", "Lamb Tagine", "Moussaka", "Nachos", "Oyakodon", "Pad Thai", "Quiche Lorraine", "Ratatouille", "Shakshuka"],
+    ["Spaghetti Bolognese", "Tandoori Chicken", "Vegetable Frittata", "Walnut Roll", "Yakitori", "Zucchini Slice", "Apple Frangipan Tart", "BBQ Pork Sloppy Joes", "Chicken Fajita Mac and Cheese", "Dundee Cake"],
+    ["Eggplant Adobo", "Fish Pie", "General Tso's Chicken", "Honey Teriyaki Salmon", "Irish Stew", "Jerk Chicken", "Kapsalon", "Laksa King Prawn Noodles", "Massaman Beef Curry", "Nasi lemak"],
+    ["Osso Buco", "Pasta Carbonara", "Quinoa Salad", "Risotto alla Milanese", "Sushi", "Tacos", "Udon Noodles", "Vindaloo", "Wontons", "Yellow Curry"]
+  ];
+
+  const allRecipes = [];
+
+  // Get the specific row based on rowIndex
+  const selectedRow = recipeArray[rate - 1];
+
+  for (let recipeName of selectedRow) {
+    try {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${recipeName}`);
+      const data = await response.json();
+
+      if (data.meals) {
+        // If recipe details exist, add them to the allRecipes array
+        allRecipes.push(data.meals[0]);
+      }
+    } catch (error) {
+      console.error(`Error fetching data for ${recipeName}:`, error);
+    }
+  }
+  setLoading(false);
+  setMeals(allRecipes);
+}
 
 
   //calling
@@ -194,6 +225,10 @@ const handleSearch3 = async (category) => {
         
       case 'category':
         await handleSearch3(selectedCategory);
+        break;
+      
+      case 'rating':
+        await handleSearch4(e,selectedRate);
         break;
         
       default:
@@ -315,9 +350,37 @@ const handleSearch3 = async (category) => {
     { id: 4, name: "Chris Lee", feedback: "Easy to follow, and the taste was great!" }
   ];*/
 
-  const handleReviews = () => {
+  const handleReviews = async (mealId) => {
     setShowReviewsModal(true);
+    try {
+      // Send request to the API to fetch meal reviews by mealId
+      const response = await fetch(`${REACT_APP_BACKEND_URL}/api/feedback/getmealrate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ mealId }),
+      });
+
+      // Check if the request was successful
+      if (!response.ok) {
+        throw new Error('Failed to fetch meal reviews');
+      }
+
+      // Parse the response JSON
+      const data = await response.json();
+
+      // Store reviews and average rating separately
+      setReviews(data.feedbacks); // Array of feedbacks
+      setAvgRating(data.averageRating); // Average rating value
+    } catch (error) {
+      console.error('Error fetching meal reviews:', error);
+      setReviews('');
+      setAvgRating(0); // Return default values in case of an error
+    }
   };
+
+
 
   const handleFeedbackModal = () => {
     setShowFeedbackModal(true);
@@ -354,7 +417,9 @@ const handleSearch3 = async (category) => {
       case 'area':
         return  t('selectArea');
       case 'category':
-        return t('selectCategory');  
+        return t('selectCategory'); 
+      case 'rating':
+        return t('selectRating'); 
       default:
         return '';
     }
@@ -390,6 +455,7 @@ const handleSearch3 = async (category) => {
           <option value="ingredients">{t('byIngredients')}</option>
           <option value="area">{t('byArea')}</option>
           <option value="category">{t('byCategory')}</option>
+          <option value="rating">{t('byRating')}</option>
         </select>
       </div>
 
@@ -437,6 +503,34 @@ const handleSearch3 = async (category) => {
           onChange={(e) => setQuery(e.target.value)}
         />
       )}
+      {/* For Main Dish and Ingredients, just an input box */}
+      {(searchType === 'mainDish' || searchType === 'ingredients') && (
+              <input
+                type="text"
+                className="search-control"
+                placeholder={getPlaceholder()}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            )}
+            {searchType === 'rating' && (
+              <select
+                className="search-control"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setSelectedRate(e.target.value);
+                }
+                }
+              >
+                <option value="">Select Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            )}
 
       <button type="submit" className="search-btn">
         <i className="fa fa-search"></i>
@@ -551,26 +645,40 @@ const handleSearch3 = async (category) => {
                    {t('videoLink')}
                   </a>
                 )}
-                <button className="btn-reviews" onClick={handleReviews}>
-                {t('reviews')}
-                </button>
+                {searchType!=='rating' &&<button className="btn-reviews" onClick={(e) => { handleReviews(selectedMeal.idMeal); }}>
+                  {t('reviews')}
+                </button>}
                 <button className="btn-feedback" onClick={handleFeedbackModal}>{t('addYourFeedback')}</button>
               </div>
 
               
-              {showReviewsModal && (
-        <div className="modal">
-          <h2> {t('reviews')}</h2>
-          <button onClick={closeModal}>✖</button>
-          <ul>
-            {reviews.map((review, index) => (
-              <li key={index}>
-                <strong>{review.username}</strong>: {review.feedback} <span>Rating: {review.rating}/5</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+              {showReviewsModal  && (
+                <div className="modal">
+                  <h2> {t('reviews')}</h2>
+                  <button onClick={closeModal}>✖</button>
+                  { reviews!='' ? <ul>
+                    {reviews.map((review, index) => (
+                      <li key={index}>
+                        <div>
+                          <p style={{ fontWeight: 'bold', color: 'black' }}>
+                            <strong>Username:</strong> {review.username}
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <strong>Feedback:</strong> {review.feedback}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <strong>Rating:</strong> {review.rating}
+                          </p>
+                         
+                        </div>
+
+                      </li>
+                    ))}
+                     <p style={{ fontWeight: 'bold', color: 'black' }}>
+                            <strong >Average Rating:</strong> {avgrating}
+                          </p>
+                  </ul> : <p style={{color:'white'}}><strong>No Reviews Found</strong></p>}
+                </div>
+              )}
              {showFeedbackModal && (
         <div className="modal">
           <h2>{t('submitFeedback')}</h2>

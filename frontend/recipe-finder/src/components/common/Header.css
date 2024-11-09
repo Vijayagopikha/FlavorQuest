@@ -5,45 +5,45 @@
     --tenne-tawny-dark: #b54507;
 }
 
-.header-container { 
+.header-container {
     position: relative;
     width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #f9f9f9;
+    color: #ffffff;
     text-align: center;
     background-color: var(--tenne-tawny-dark);
     font-family: 'Poppins', sans-serif;
 }
 
 .header-title {
-    font-size: 3em; /* Increased font size for the title */
-    letter-spacing: 10px; /* Space between letters */
-    text-transform: uppercase; /* Uppercase for the title */
-    color: #fff; /* Title color */
-    margin: 0; /* No margin */
-    padding: 0; /* No padding */
-    text-align: center; /* Center align text */
-    transition: color 0.3s ease; /* Transition effect for hover */
+    font-size: 3em;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    transition: color 0.3s ease;
 }
 
-/* Add hover effect for title */
 .header-title:hover {
-    color: var(--tenne-tawny); /* Change color on hover */
+    color: var(--tenne-tawny);
 }
 
 .header-subtitle {
-    letter-spacing: 5px; /* Space between letters */
-    color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for subtitle */
-    font-size: 1.8em; /* Increased font size for subtitle */
-    margin-top: 10px; /* Space above subtitle */
+    letter-spacing: 5px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.8em;
+    margin-top: 10px;
 }
+
 .header-subtitle:hover {
-    color: var(--tenne-tawny); /* Change color on hover */
-  }
-/* Additional styling to maintain responsiveness */
+    color: var(--tenne-tawny);
+}
+
 .text-content {
     display: flex;
     flex-direction: column;
@@ -55,17 +55,61 @@
     transform: translate(-50%, -50%);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .header-title {
         font-size: 2.5em;
         letter-spacing: 8px;
+    }
+    .header-subtitle {
+        font-size: 1.5em;
+    }
+    .nav-links {
+        padding: 10px 50px;
+    }
+    .company-name {
+        font-size: 1.4em;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 2em;
+        letter-spacing: 5px;
+    }
+    .header-subtitle {
+        font-size: 1.3em;
+    }
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 20px;
+    }
+    .company-name {
+        font-size: 1.2em;
+    }
+    .language-dropdown {
+        margin-left: 0;
+        margin-top: 10px;
     }
 }
 
 @media (max-width: 480px) {
     .header-title {
-        font-size: 2em;
-        letter-spacing: 5px;
+        font-size: 1.5em;
+        letter-spacing: 3px;
+    }
+    .header-subtitle {
+        font-size: 1em;
+    }
+    .nav-links {
+        padding: 10px 15px;
+    }
+    .dropdown-btn {
+        font-size: 16px;
+    }
+    .dropdown-menu button {
+        font-size: 16px;
+        padding: 8px 10px;
     }
 }
 
@@ -74,7 +118,7 @@
     position: absolute;
     top: 35px;
     width: 95%;
-    gap: 20;
+    gap: 20px;
     display: flex;
     justify-content: space-between;
     padding: 10px 100px;
@@ -84,22 +128,29 @@
 .left-links,
 .right-links {
     display: flex;
-    gap: 20px; /* Set a gap between each link */
+    gap: 20px;
+    font-weight: bold;
+    font-size: 17px;
 }
 
 .company-name {
-    font-size: 1.5em;
-    color: var(--tenne-tawny);
-    margin-right: 20px;
+    font-size: 1.6em;
     font-weight: bold;
+    margin-right: 20px;
+    margin-top: -6px;
+    color: transparent;
+    background: linear-gradient(30deg, #b45a22 90%, var(--tenne-tawny) 90%);
+    -webkit-background-clip: text;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.5px;
+    font-family: 'Arial Black', sans-serif;
 }
 
 .left-links a,
 .right-links a {
-    color: #fff;
+    color: #020202;
     text-decoration: none;
     font-size: 1.2em;
-    gap: 20px;
     transition: all 0.3s ease;
     position: relative;
 }
@@ -129,71 +180,83 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* Ensure modal is above other content */
+    z-index: 1000;
 }
 
 /* Login Modal */
 .login-modal,
 .signup-modal {
-    background-color: white; /* Modal background */
-    border-radius: 8px; /* Rounded corners */
-    padding: 20px; /* Inner spacing */
-    width: 400px; /* Set a fixed width */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Close Button */
 .close-modal-btn {
-    background: none; /* No background */
-    border: none; /* No border */
-    font-size: 20px; /* Font size for close button */
-    cursor: pointer; /* Pointer cursor */
-    color: #333; /* Color for the close button */
-    float: right; /* Position to the right */
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+    float: right;
 }
-/* Basic styles for the dropdown */
+
+/* Dropdown */
 .language-dropdown {
     position: relative;
     display: inline-block;
-    margin-right: 10px; /* Optional: adds some space between the dropdown and buttons */
+    margin-top: -6px;
 }
 
 .dropdown-btn {
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #ccc;
     padding: 8px 16px;
+    font-size: 18px;
     cursor: pointer;
-    font-size: 16px;
+    border: none;
+    background: none;
+    color: #000;
+    display: flex;
+    align-items: center;
 }
 
-.dropdown-btn:hover {
-    background-color: #f1f1f1;
+.language-dropdown button:hover {
+    color: #b54507;
+}
+
+.dropdown-btn i {
+    margin-right: 8px;
 }
 
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    left: 0;
+    outline: #000;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    min-width: 100px;
+    padding: 10px 0;
+    z-index: 1000;
 }
 
 .dropdown-menu button {
+    width: 100%;
+    padding: 10px 16px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
     background: none;
     border: none;
-    padding: 8px 16px;
-    width: 100%;
-    text-align: left;
     cursor: pointer;
 }
 
 .dropdown-menu button:hover {
-    background-color: #f1f1f1;
+    background-color: #dc7424fe;
 }

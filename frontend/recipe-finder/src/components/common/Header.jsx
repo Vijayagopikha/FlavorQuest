@@ -113,7 +113,9 @@ const Header = (props) => {
         </div>
         <div className="language-dropdown">
         <button className="dropdown-btn" onClick={toggleDropdown}>
-                            {i18n.language === 'en' ? 'English' : i18n.language === 'ta' ? 'தமிழ்' : 'हिन्दी'}
+        <i className="fas fa-globe fa-2x"></i> {/* Globe icon */}
+
+                            {/*{i18n.language === 'en' ? 'English' : i18n.language === 'ta' ? 'தமிழ்' : 'हिन्दी'}*/}
                         </button>
         {isDropdownOpen && (
                             <div className="dropdown-menu">

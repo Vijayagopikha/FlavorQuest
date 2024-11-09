@@ -1,7 +1,6 @@
-
 :root {
-    --tenne-tawny: #d65108;
-    --tenne-tawny-dark: #b54507;
+    --tenne-tawny: #d15319;
+    --tenne-tawny-dark: #b53507;
 }
 .loader-container {
     display: flex;
@@ -59,7 +58,7 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #ffffff;
     text-align: center;
     background-color: var(--tenne-tawny-dark);
     font-family: 'Poppins', sans-serif;
@@ -69,7 +68,7 @@ html, body {
     font-size: 3em; /* Increased font size for the title */
     letter-spacing: 10px; /* Space between letters */
     text-transform: uppercase; /* Uppercase for the title */
-    color: #fff; /* Title color */
+    color: #272727; /* Title color */
     margin: 0; /* No margin */
     padding: 0; /* No padding */
     text-align: center; /* Center align text */
@@ -78,12 +77,12 @@ html, body {
 
 /* Add hover effect for title */
 .header-title:hover {
-    color: var(--tenne-tawny); /* Change color on hover */
+    color:var(--tenne-tawny); /* Change color on hover */
 }
 
 .header-subtitle {
     letter-spacing: 5px; /* Space between letters */
-    color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for subtitle */
+    color: rgba(3, 3, 3, 0.726); /* Slightly transparent white for subtitle */
     font-size: 1.8em; /* Increased font size for subtitle */
     margin-top: 10px; /* Space above subtitle */
 }
