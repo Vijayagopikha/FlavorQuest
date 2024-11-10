@@ -504,15 +504,7 @@ const handleSearch4 = async (e, rate) => {
         />
       )}
       {/* For Main Dish and Ingredients, just an input box */}
-      {(searchType === 'mainDish' || searchType === 'ingredients') && (
-              <input
-                type="text"
-                className="search-control"
-                placeholder={getPlaceholder()}
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-              />
-            )}
+      
             {searchType === 'rating' && (
               <select
                 className="search-control"
@@ -656,7 +648,7 @@ const handleSearch4 = async (e, rate) => {
                 <div className="modal">
                   <h2> {t('reviews')}</h2>
                   <button onClick={closeModal}>✖</button>
-                  { reviews!='' ? <ul>
+                  { reviews!=='' ? <ul>
                     {reviews.map((review, index) => (
                       <li key={index}>
                         <div>

@@ -1,6 +1,6 @@
 :root {
     --tenne-tawny: #d15319;
-    --tenne-tawny-dark: #b53507;
+    --tenne-tawny-dark: #e7470d;
 }
 .loader-container {
     display: flex;
@@ -24,8 +24,6 @@
     100% { transform: rotate(360deg); }
   }
   
-  
-
 html, body {
     height: 100%;
     margin: 0;
@@ -68,24 +66,27 @@ html, body {
     font-size: 3em; /* Increased font size for the title */
     letter-spacing: 10px; /* Space between letters */
     text-transform: uppercase; /* Uppercase for the title */
-    color: #272727; /* Title color */
+    color:white;  /* Title color */
     margin: 0; /* No margin */
     padding: 0; /* No padding */
     text-align: center; /* Center align text */
     transition: color 0.3s ease; /* Transition effect for hover */
+    z-index: 5;
 }
 
 /* Add hover effect for title */
 .header-title:hover {
     color:var(--tenne-tawny); /* Change color on hover */
+   
 }
 
 .header-subtitle {
     letter-spacing: 5px; /* Space between letters */
-    color: rgba(3, 3, 3, 0.726); /* Slightly transparent white for subtitle */
+    color: rgb(255, 255, 255); /* Slightly transparent white for subtitle */
     font-size: 1.8em; /* Increased font size for subtitle */
     margin-top: 10px; /* Space above subtitle */
 }
-.header-subtitle:hover {
-    color: var(--tenne-tawny); /* Change color on hover */
-  }
+
+  .header-subtitle:hover {
+    color:var(--tenne-tawny); /* Change color to red when hovering */
+}

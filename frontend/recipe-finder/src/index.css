@@ -8,12 +8,29 @@ body {
 }
 .bg-image {
   position: relative;
-  background: linear-gradient(rgba(8, 8, 8, 0.1), rgba(8, 8, 8, 0.1)), url('./assets/w4.jpg');
+  background: url('./assets/f8.jpg');
   height: 100vh;
   width: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.bg-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2); /* Black shadow layer */
+  z-index: -1; /* Place shadow layer above the image */
+}
+
+.content {
+  position: relative;
+  z-index: 2; /* Place content above the shadow */
+  color: #fff; /* Adjust text color to make it visible */
 }
 
 
@@ -40,7 +57,7 @@ code {
 
 .header-subtitle {
   letter-spacing: 5px; /* Space between letters */
-  color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for subtitle */
+  color: rgba(38, 38, 38, 0.971); /* Slightly transparent white for subtitle */
   font-size: 1.8em; /* Increased font size for subtitle */
   margin-top: 10px; /* Space above subtitle */
 }
