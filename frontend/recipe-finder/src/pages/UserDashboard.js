@@ -12,11 +12,11 @@ const UserDashboard = () => {
   const [email, setEmail] = useState(localStorage.getItem('userEmail') || '');
   const [dob, setDob] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
+  const [password] = useState('');
   const [favoritesCount, setFavoritesCount] = useState(0);
   const [recommendations, setRecommendations] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [loading, setLoading] = useState(true);
+
   
   const navigate = useNavigate();
   const { t } = useTranslation();
