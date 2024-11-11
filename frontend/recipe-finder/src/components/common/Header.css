@@ -5,6 +5,14 @@
     --tenne-tawny-dark: #b54507;
 }
 
+/* Base Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
 .header-container {
     position: relative;
     width: 100%;
@@ -15,7 +23,6 @@
     color: #ffffff;
     text-align: center;
     background-color: var(--tenne-tawny-dark);
-    font-family: 'Poppins', sans-serif;
 }
 
 .header-title {
@@ -38,6 +45,7 @@
     color: rgba(255, 255, 255, 0.8);
     font-size: 1.8em;
     margin-top: 10px;
+    transition: color 0.3s ease;
 }
 
 .header-subtitle:hover {
@@ -55,77 +63,17 @@
     transform: translate(-50%, -50%);
 }
 
-@media (max-width: 1200px) {
-    .header-title {
-        font-size: 2.5em;
-        letter-spacing: 8px;
-    }
-    .header-subtitle {
-        font-size: 1.5em;
-    }
-    .nav-links {
-        padding: 10px 50px;
-    }
-    .company-name {
-        font-size: 1.4em;
-    }
-}
-
-@media (max-width: 768px) {
-    .header-title {
-        font-size: 2em;
-        letter-spacing: 5px;
-    }
-    .header-subtitle {
-        font-size: 1.3em;
-    }
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
-        padding: 10px 20px;
-    }
-    .company-name {
-        font-size: 1.2em;
-    }
-    .language-dropdown {
-        margin-left: 0;
-        margin-top: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .header-title {
-        font-size: 1.5em;
-        letter-spacing: 3px;
-    }
-    .header-subtitle {
-        font-size: 1em;
-    }
-    .nav-links {
-        padding: 10px 15px;
-    }
-    .dropdown-btn {
-        font-size: 16px;
-    }
-    .dropdown-menu button {
-        font-size: 16px;
-        padding: 8px 10px;
-    }
-}
-
 /* Navigation styles */
 .nav-links {
     position: absolute;
-    top: 35px;
-    width: 115%;
-    gap: 20px;
+    top: 20px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 10px 100px;
+    padding: 10px 50px;
     z-index: 20;
-    border-radius: 8px; /* Optional: Rounded corners */
+    gap: 15px;
 }
-
 
 .left-links,
 .right-links {
@@ -134,16 +82,15 @@
     font-weight: bold;
     font-size: 17px;
 }
-
+.right-links{
+    margin-left: 5px;
+}
 .company-name {
     font-size: 1.6em;
     font-weight: bold;
     margin-right: 20px;
-    margin-top: -7px;
-    color:  var(--tenne-tawny-dark);
-   
-    
-  
+    margin-top: -9px;
+    color: var(--tenne-tawny-dark);
     letter-spacing: 0.5px;
     font-family: 'Arial Black', sans-serif;
 }
@@ -189,7 +136,6 @@
     z-index: 1000;
 }
 
-/* Login Modal */
 .login-modal,
 .signup-modal {
     background-color: white;
@@ -215,7 +161,7 @@
     position: relative;
     display: inline-block;
     margin-top: -6px;
-    margin-left: 630px;
+    margin-left: 560px;
 }
 
 .dropdown-btn {
@@ -241,9 +187,8 @@
     position: absolute;
     top: 100%;
     left: 0;
-    color: white; /* White font color */
-    font-size: 1.5em; /* Increase font size, adjust as needed */
-    outline: #fdfdfd;
+    color: white;
+    font-size: 1.5em;
     box-shadow: 0 8px 16px rgba(235, 235, 235, 0.1);
     border-radius: 4px;
     min-width: 100px;
@@ -265,4 +210,63 @@
 
 .dropdown-menu button:hover {
     background-color: #dc7424fe;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .header-title {
+        font-size: 2.5em;
+        letter-spacing: 8px;
+    }
+    .header-subtitle {
+        font-size: 1.5em;
+    }
+    .nav-links {
+        padding: 10px 20px;
+    }
+    .company-name {
+        font-size: 1.4em;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 2em;
+        letter-spacing: 5px;
+    }
+    .header-subtitle {
+        font-size: 1.3em;
+    }
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+    .company-name {
+        font-size: 1.2em;
+    }
+    .language-dropdown {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 1.5em;
+        letter-spacing: 3px;
+    }
+    .header-subtitle {
+        font-size: 1em;
+    }
+    .nav-links {
+        padding: 10px;
+    }
+    .dropdown-btn {
+        font-size: 16px;
+    }
+    .dropdown-menu button {
+        font-size: 16px;
+        padding: 8px 10px;
+    }
 }

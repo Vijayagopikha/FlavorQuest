@@ -78,7 +78,7 @@
 /* Edit icon styling */
 .edit-icon {
   position: absolute;
-  right: 257px;
+  right: 220px;
   bottom: 0;
   cursor: pointer;
   color: #f39c12;
@@ -231,11 +231,11 @@ ul li a:hover {
 /* Styling for the dashboard section with questions and answers */
 .dash {
   padding: 20px;
-  width: 500px;
+  width: 450px;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 12px 24px rgba(114, 71, 71, 0.1);
-  text-align: center;
+  margin-left: -500px;
 }
 
 /* Color for the questions (labels) */
